@@ -29,6 +29,7 @@ ActiveRecord::Schema.define(version: 20191130093458) do
   create_table "offenders", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.bigint "prison_id", null: false
     t.string "gender", limit: 1
+    t.string "categoryCode"
     t.string "mainOffence"
     t.date "receptionDate"
     t.string "firstName"
