@@ -1,6 +1,7 @@
 class CreateOffenders < ActiveRecord::Migration[5.1]
   def change
     create_table :offenders do |t|
+      t.references :prison, null: false
       t.string :gender, limit: 1
       t.string :mainOffence
       t.date :receptionDate
