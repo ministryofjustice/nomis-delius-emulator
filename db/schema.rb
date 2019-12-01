@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20191201090429) do
+ActiveRecord::Schema.define(version: 20191201214001) do
 
   create_table "active_admin_comments", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.string "namespace"
@@ -24,6 +24,20 @@ ActiveRecord::Schema.define(version: 20191201090429) do
     t.index ["author_type", "author_id"], name: "index_active_admin_comments_on_author_type_and_author_id"
     t.index ["namespace"], name: "index_active_admin_comments_on_namespace"
     t.index ["resource_type", "resource_id"], name: "index_active_admin_comments_on_resource_type_and_resource_id"
+  end
+
+  create_table "bookings", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+    t.bigint "offender_id", null: false
+    t.date "home_detention_curfew_eligibility_date"
+    t.date "parole_eligibility_date"
+    t.date "release_date"
+    t.date "automatic_release_date"
+    t.date "conditional_release_date"
+    t.date "sentence_start_date"
+    t.date "tariff_date"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["offender_id"], name: "index_bookings_on_offender_id"
   end
 
   create_table "offenders", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
