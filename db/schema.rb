@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20191130093458) do
+ActiveRecord::Schema.define(version: 20191201090429) do
 
   create_table "active_admin_comments", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.string "namespace"
@@ -28,13 +28,13 @@ ActiveRecord::Schema.define(version: 20191130093458) do
 
   create_table "offenders", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.bigint "prison_id", null: false
-    t.string "gender", limit: 1
+    t.string "offenderNo", limit: 7, null: false
+    t.string "gender", limit: 1, null: false
     t.string "categoryCode"
     t.string "mainOffence"
     t.date "receptionDate"
     t.string "firstName"
     t.string "lastName"
-    t.string "offenderNo"
     t.string "convictedStatus"
     t.string "imprisonmentStatus"
     t.date "dateOfBirth"

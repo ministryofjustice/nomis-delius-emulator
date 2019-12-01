@@ -30,6 +30,7 @@ gem 'jbuilder', '~> 2.5'
 # gem 'bcrypt', '~> 3.1.7'
 #
 gem 'activeadmin'
+gem 'responders'
 
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
