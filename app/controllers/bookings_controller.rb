@@ -3,6 +3,6 @@ class BookingsController < ApplicationController
 
   def index
     booking_ids = JSON.parse(request.body.string)
-    @bookings = Booking.find(booking_ids)
+    @bookings = Booking.includes(:offender).find(booking_ids)
   end
 end

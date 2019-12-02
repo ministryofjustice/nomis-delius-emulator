@@ -18,7 +18,9 @@ RSpec.describe BookingsController, type: :controller do
       post :index, body: [booking.id].to_json, format: :json
       expect(response).to be_successful
 
-      expect(JSON.parse(response.body)).to eq([{"automaticReleaseDate"=>"2019-12-01",
+      expect(JSON.parse(response.body)).to eq([{'firstName' => offender.firstName,
+                                                'lastName' => offender.lastName,
+                                                "automaticReleaseDate"=>"2019-12-01",
                                                 "conditionalReleaseDate"=>"2019-12-01",
                                                 "homeDetentionCurfewEligibilityDate"=>"2019-12-01",
                                                 "paroleEligibilityDate"=>"2019-12-01",
