@@ -6,7 +6,7 @@ RSpec.describe BookingsController, type: :controller do
   let(:booking) { create(:booking, offender: offender) }
 
   it 'posts index' do
-    post :index, params: {booking_ids: [booking.id]}, format: :json
+    post :index, body: [booking.id].to_json, format: :json
     expect(response).to be_successful
     expect(assigns(:bookings)).to eq([booking])
   end
