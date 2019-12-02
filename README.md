@@ -8,6 +8,8 @@ This emulator has to model at a minimum 5 main entities:
 * Role (linked to Staff and Prison)
 * Position (linked to Staff and Prison)
 
+Also Sentence/Booking needs to be modelled
+
 Things you may want to cover:
 
 * Ruby version
