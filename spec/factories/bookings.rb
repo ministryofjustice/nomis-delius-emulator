@@ -1,11 +1,11 @@
 FactoryBot.define do
   factory :booking do
-    home_detention_curfew_eligibility_date { "2019-12-01" }
-    parole_eligibility_date { "2019-12-01" }
-    release_date { "2019-12-01" }
-    automatic_release_date { "2019-12-01" }
-    conditional_release_date { "2019-12-01" }
-    sentence_start_date { "2019-12-01" }
-    tariff_date { "2019-12-01" }
+    homeDetentionCurfewEligibilityDate { "2019-12-01" }
+    paroleEligibilityDate { "2019-12-01" }
+    releaseDate { "2019-12-01" }
+    automaticReleaseDate { "2019-12-01" }
+    conditionalReleaseDate { "2019-12-01" }
+    sentenceStartDate { "2019-12-01" }
+    tariffDate { "2019-12-01" }
   end
 end
