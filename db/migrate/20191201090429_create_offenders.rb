@@ -9,7 +9,6 @@ class CreateOffenders < ActiveRecord::Migration[5.1]
       t.date :receptionDate
       t.string :firstName
       t.string :lastName
-      t.string :convictedStatus
       t.string :imprisonmentStatus
       t.date :dateOfBirth
 

@@ -2,7 +2,7 @@ class Offender < ApplicationRecord
   belongs_to :prison
   has_many :movements
 
-  validates_presence_of :convictedStatus, :firstName, :gender, :imprisonmentStatus, :lastName,
+  validates_presence_of :firstName, :gender, :imprisonmentStatus, :lastName,
                         :mainOffence, :offenderNo, :receptionDate
 
   after_create :create_inward_move

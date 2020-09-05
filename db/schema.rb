@@ -59,7 +59,6 @@ ActiveRecord::Schema.define(version: 2020_09_05_191342) do
     t.date "receptionDate"
     t.string "firstName"
     t.string "lastName"
-    t.string "convictedStatus"
     t.string "imprisonmentStatus"
     t.date "dateOfBirth"
     t.datetime "created_at", null: false
