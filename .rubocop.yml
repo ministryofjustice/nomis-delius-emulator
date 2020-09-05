@@ -1,0 +1,11 @@
+inherit_gem:
+  rubocop-govuk:
+    - config/default.yml
+    - config/rails.yml
+
+  require:
+    - rubocop-rspec
+    - rubocop-performance
+    - rubocop-rails
+
+inherit_from: .rubocop_todo.yml

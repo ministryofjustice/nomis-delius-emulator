@@ -1,5 +1,7 @@
 FactoryBot.define do
   factory :offender do
+    association :prison
+
     convictedStatus { 'Convicted' }
     firstName { 'Fred' }
     gender { 'M' }
@@ -7,6 +9,6 @@ FactoryBot.define do
     lastName { 'Bloggs' }
     mainOffence { 'Robbery'}
     offenderNo { 'G1235FX'}
-    receptionDate { Time.zone.today - 1.day }
+    receptionDate { Time.zone.today - 1.year }
   end
 end

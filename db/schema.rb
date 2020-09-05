@@ -10,9 +10,9 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20191201214001) do
+ActiveRecord::Schema.define(version: 2020_09_05_191342) do
 
-  create_table "active_admin_comments", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+  create_table "active_admin_comments", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "namespace"
     t.text "body"
     t.string "resource_type"
@@ -26,7 +26,7 @@ ActiveRecord::Schema.define(version: 20191201214001) do
     t.index ["resource_type", "resource_id"], name: "index_active_admin_comments_on_resource_type_and_resource_id"
   end
 
-  create_table "bookings", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+  create_table "bookings", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.bigint "offender_id", null: false
     t.date "homeDetentionCurfewEligibilityDate"
     t.date "paroleEligibilityDate"
@@ -40,7 +40,17 @@ ActiveRecord::Schema.define(version: 20191201214001) do
     t.index ["offender_id"], name: "index_bookings_on_offender_id"
   end
 
-  create_table "offenders", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+  create_table "movements", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.bigint "offender_id", null: false
+    t.bigint "from_prison_id"
+    t.bigint "to_prison_id"
+    t.string "typecode", limit: 3, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["offender_id"], name: "index_movements_on_offender_id"
+  end
+
+  create_table "offenders", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.bigint "prison_id", null: false
     t.string "offenderNo", limit: 7, null: false
     t.string "gender", limit: 1, null: false
@@ -57,7 +67,7 @@ ActiveRecord::Schema.define(version: 20191201214001) do
     t.index ["prison_id"], name: "index_offenders_on_prison_id"
   end
 
-  create_table "prisons", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+  create_table "prisons", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "code", limit: 3, null: false
     t.string "name", null: false
     t.datetime "created_at", null: false
