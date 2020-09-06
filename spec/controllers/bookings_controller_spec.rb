@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe BookingsController, type: :controller do
+RSpec.describe Api::BookingsController, type: :controller do
   let(:prison) { create(:prison) }
   let(:offender) { create(:offender, prison: prison)}
   let(:booking) { create(:booking, offender: offender) }

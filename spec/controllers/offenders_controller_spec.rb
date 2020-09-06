@@ -2,7 +2,7 @@
 
 require 'rails_helper'
 
-RSpec.describe OffendersController, type: :controller do
+RSpec.describe Api::OffendersController, type: :controller do
   let(:prison) { create(:prison) }
 
   context 'one offender' do
