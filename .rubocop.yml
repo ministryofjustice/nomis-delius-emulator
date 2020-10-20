@@ -8,4 +8,63 @@ require:
   - rubocop-performance
   - rubocop-rails
 
-inherit_from: .rubocop_todo.yml
+# Offense count: 2
+# Cop supports --auto-correct.
+# Configuration parameters: EnforcedStyle, EnforcedStyleForEmptyBrackets.
+# SupportedStyles: space, no_space, compact
+# SupportedStylesForEmptyBrackets: space, no_space
+Layout/SpaceInsideArrayLiteralBrackets:
+  Exclude:
+    - 'config/environments/production.rb'
+
+RSpec/ExampleLength:
+  Max: 12
+
+# Offense count: 3
+# Cop supports --auto-correct.
+# Configuration parameters: EnforcedStyle.
+# SupportedStyles: implicit, each, example
+RSpec/HookArgument:
+  Exclude:
+    - 'spec/rails_helper.rb'
+
+# Offense count: 12
+RSpec/MultipleExpectations:
+  Max: 4
+
+# Offense count: 1
+# Configuration parameters: EnforcedStyle.
+# SupportedStyles: slashes, arguments
+Rails/FilePath:
+  Exclude:
+    - 'config/environments/development.rb'
+
+# Offense count: 3
+# Configuration parameters: Include.
+# Include: app/models/**/*.rb
+Rails/HasManyOrHasOneDependent:
+  Exclude:
+    - 'app/models/offender.rb'
+    - 'app/models/prison.rb'
+
+# Offense count: 2
+Rails/ReflectionClassName:
+  Exclude:
+    - 'app/models/movement.rb'
+
+# Offense count: 1
+Style/CommentedKeyword:
+  Exclude:
+    - 'app/admin/dashboard.rb'
+
+# Offense count: 2
+Style/MixinUsage:
+  Exclude:
+    - 'bin/setup'
+    - 'bin/update'
+
+# Offense count: 2
+# Cop supports --auto-correct.
+Style/StderrPuts:
+  Exclude:
+    - 'bin/yarn'

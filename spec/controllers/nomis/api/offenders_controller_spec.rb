@@ -5,7 +5,7 @@ require "rails_helper"
 RSpec.describe Nomis::Api::OffendersController, type: :controller do
   let(:prison) { create(:prison) }
 
-  context "one offender" do
+  context "with one offender" do
     before { create(:offender, prison: prison, booking: build(:booking)) }
 
     let(:offender) { Offender.last }
@@ -42,7 +42,7 @@ RSpec.describe Nomis::Api::OffendersController, type: :controller do
     end
   end
 
-  context "paging" do
+  context "when paging" do
     before do
       1.upto(10) { |i| create(:offender, prison: prison, offenderNo: "G#{1000 + i}FX", booking: build(:booking)) }
     end
