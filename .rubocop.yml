@@ -20,6 +20,13 @@ Layout/SpaceInsideArrayLiteralBrackets:
 RSpec/ExampleLength:
   Max: 12
 
+# Offense count: 1
+# Cop supports --auto-correct.
+# Configuration parameters: .
+# SupportedStyles: is_expected, should
+RSpec/ImplicitExpect:
+  EnforcedStyle: should
+
 # Offense count: 3
 # Cop supports --auto-correct.
 # Configuration parameters: EnforcedStyle.
