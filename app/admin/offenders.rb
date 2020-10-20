@@ -1,5 +1,4 @@
 ActiveAdmin.register Offender do
-
   # See permitted parameters documentation:
   # https://github.com/activeadmin/activeadmin/blob/master/docs/2-resource-customization.md#setting-up-strong-parameters
   #
@@ -28,7 +27,7 @@ ActiveAdmin.register Offender do
     f.input :dateOfBirth, as: :datepicker,
             datepicker_options: {
         min_date: Time.zone.today - 80.years,
-        max_date: Time.zone.today - 18.years
+        max_date: Time.zone.today - 18.years,
     }
     f.submit
   end

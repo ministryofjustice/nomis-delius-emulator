@@ -11,13 +11,13 @@ class Offender < ApplicationRecord
   after_create :create_inward_move
   before_update :create_transfer, if: -> { prison_id_changed? }
 
-  private
+private
 
   def create_inward_move
-    movements.create!(typecode: 'ADM', to_prison: prison)
+    movements.create!(typecode: "ADM", to_prison: prison)
   end
 
   def create_transfer
-    movements.create!(typecode: 'TRN', from_prison_id: prison_id_was, to_prison: prison)
+    movements.create!(typecode: "TRN", from_prison_id: prison_id_was, to_prison: prison)
   end
 end

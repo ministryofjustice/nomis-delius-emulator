@@ -4,8 +4,8 @@ module Nomis
       respond_to :json
 
       def index
-        offset = request.headers['Page-Offset']
-        limit = request.headers['Page-Limit']
+        offset = request.headers["Page-Offset"]
+        limit = request.headers["Page-Limit"]
         prison = Prison.find_by(code: params[:prison_id])
         @offenders = prison.offenders.joins(:booking).offset(offset).limit(limit)
       end
