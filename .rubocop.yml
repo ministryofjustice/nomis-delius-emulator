@@ -54,11 +54,6 @@ Rails/HasManyOrHasOneDependent:
     - 'app/models/offender.rb'
     - 'app/models/prison.rb'
 
-# Offense count: 2
-Rails/ReflectionClassName:
-  Exclude:
-    - 'app/models/movement.rb'
-
 # Offense count: 1
 Style/CommentedKeyword:
   Exclude:
