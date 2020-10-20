@@ -50,7 +50,7 @@ group :development do
   gem "listen", ">= 3.0.5", "< 3.2"
 
   gem "rubocop"
-  gem "rubocop-rspec"
+  gem "rubocop-rspec", "< 1.38"
   gem "rubocop-performance"
   gem "rubocop-rails"
   gem "rubocop-govuk", "~> 2.0"
