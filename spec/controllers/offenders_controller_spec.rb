@@ -6,24 +6,43 @@ RSpec.describe Nomis::Api::OffendersController, type: :controller do
   let(:prison) { create(:prison) }
 
   context 'one offender' do
-    let!(:offender) { create(:offender, prison: prison) }
+    before { create(:offender, prison: prison, booking: build(:booking)) }
+    let(:offender) { Offender.last }
 
     render_views
 
     it 'gets index' do
       get :index, params: { prison_id: prison.code }, format: :json
       expect(response).to be_successful
-      expect(JSON.parse(response.body)).to eq([{ 'categoryCode' => nil, 'convictedStatus' => offender.convictedStatus,
-                                                 'firstName' => offender.firstName, 'gender' => offender.gender,
-                                                 'imprisonmentStatus' => offender.imprisonmentStatus, 'lastName' => offender.lastName,
-                                                 'mainOffence' => offender.mainOffence, 'offenderNo' => offender.offenderNo,
-                                                 'receptionDate' => offender.receptionDate.to_s }])
+      expect(JSON.parse(response.body)).to eq([{ categoryCode: nil,
+                                                 firstName: offender.firstName,
+                                                 gender: offender.gender,
+                                                 bookingId: offender.booking.id,
+                                                 agencyId: prison.code,
+                                                 imprisonmentStatus: offender.imprisonmentStatus,
+                                                 lastName: offender.lastName,
+                                                 mainOffence: offender.mainOffence,
+                                                 offenderNo: offender.offenderNo,
+                                                 receptionDate: offender.receptionDate.to_s }.stringify_keys])
+    end
+  end
+
+  context 'without a booking' do
+    before { create(:offender, prison: prison, booking: nil) }
+    let(:offender) { Offender.last }
+
+    render_views
+
+    it 'gets index' do
+      get :index, params: { prison_id: prison.code }, format: :json
+      expect(response).to be_successful
+      expect(JSON.parse(response.body)).to eq([])
     end
   end
 
   context 'paging' do
     before do
-      1.upto(10) { |i| create(:offender, prison: prison, offenderNo: "G#{1000 + i}FX") }
+      1.upto(10) { |i| create(:offender, prison: prison, offenderNo: "G#{1000 + i}FX", booking: build(:booking)) }
     end
 
     it 'gets the first 5 offenders' do

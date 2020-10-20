@@ -2,7 +2,6 @@ FactoryBot.define do
   factory :offender do
     association :prison
 
-    convictedStatus { 'Convicted' }
     firstName { 'Fred' }
     gender { 'M' }
     imprisonmentStatus { 'SENT03'}

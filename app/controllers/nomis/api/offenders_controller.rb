@@ -7,7 +7,7 @@ module Nomis
         offset = request.headers['Page-Offset']
         limit = request.headers['Page-Limit']
         prison = Prison.find_by(code: params[:prison_id])
-        @offenders = prison.offenders.offset(offset).limit(limit)
+        @offenders = prison.offenders.joins(:booking).offset(offset).limit(limit)
       end
     end
   end

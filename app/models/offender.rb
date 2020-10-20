@@ -1,6 +1,9 @@
+# frozen_string_literal: true
+
 class Offender < ApplicationRecord
   belongs_to :prison
   has_many :movements
+  has_one :booking
 
   validates_presence_of :firstName, :gender, :imprisonmentStatus, :lastName,
                         :mainOffence, :offenderNo, :receptionDate
