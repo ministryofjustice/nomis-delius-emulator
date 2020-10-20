@@ -3,8 +3,10 @@ Rails.application.routes.draw do
 
   root 'admin/dashboard#index'
 
-  namespace :api do
-    get "/locations/description/:prison_id/inmates" => 'offenders#index'
-    post '/offender-sentences/bookings' => 'bookings#index'
+  namespace :nomis do
+    namespace :api do
+      get "/locations/description/:prison_id/inmates" => 'offenders#index'
+      post '/offender-sentences/bookings' => 'bookings#index'
+    end
   end
 end
