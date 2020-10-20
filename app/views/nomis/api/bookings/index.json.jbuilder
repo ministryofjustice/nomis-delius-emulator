@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 json.array!(@bookings) do |booking|
   json.extract! booking,
                 :homeDetentionCurfewEligibilityDate, :paroleEligibilityDate,

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 json.array!(@offenders) do |offender|
   json.extract! offender,
                 :gender, :categoryCode, :mainOffence, :receptionDate,

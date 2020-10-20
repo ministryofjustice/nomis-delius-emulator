@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class Movement < ApplicationRecord
   belongs_to :from_prison, class_name: "Prison", optional: true
   belongs_to :to_prison, class_name: "Prison", optional: true

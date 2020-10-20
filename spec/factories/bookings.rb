@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 FactoryBot.define do
   factory :booking do
     homeDetentionCurfewEligibilityDate { "2019-12-01" }

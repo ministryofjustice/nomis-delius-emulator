@@ -20,6 +20,9 @@ Layout/SpaceInsideArrayLiteralBrackets:
 RSpec/ExampleLength:
   Max: 12
 
+Style/FrozenStringLiteralComment:
+  Enabled: true
+
 # Offense count: 1
 # Cop supports --auto-correct.
 # Configuration parameters: .
