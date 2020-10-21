@@ -11,5 +11,6 @@ FactoryBot.define do
     mainOffence { "Robbery" }
     offenderNo { "G1235FX" }
     receptionDate { Time.zone.today - 1.year }
+    dateOfBirth { Time.zone.today - 20.years }
   end
 end

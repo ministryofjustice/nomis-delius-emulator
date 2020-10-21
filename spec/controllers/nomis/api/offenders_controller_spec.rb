@@ -21,6 +21,7 @@ RSpec.describe Nomis::Api::OffendersController, type: :controller do
                                                  bookingId: offender.booking.id,
                                                  agencyId: prison.code,
                                                  imprisonmentStatus: offender.imprisonmentStatus,
+                                                 dateOfBirth: offender.dateOfBirth.to_s,
                                                  lastName: offender.lastName,
                                                  mainOffence: offender.mainOffence,
                                                  offenderNo: offender.offenderNo,
