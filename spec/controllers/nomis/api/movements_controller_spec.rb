@@ -36,6 +36,21 @@ RSpec.describe Nomis::Api::MovementsController, type: :controller do
                  }
                 ].map(&:stringify_keys))
     end
+
+    it "filters by type" do
+      post :index, params: { latestOnly: true, movementTypes: ['ADM'] }, body: [offender.offenderNo].to_json, format: :json
+      expect(response).to have_http_status(:success)
+
+      expect(JSON.parse(response.body)).
+          to eq([{
+                     toAgency: prison.code,
+                     createDateTime: JSON.parse(offender.created_at.to_json),
+                     movementType: 'ADM',
+                     directionCode: 'IN',
+                     offenderNo: offender.offenderNo
+                 },
+                ].map(&:stringify_keys))
+    end
   end
 
 end

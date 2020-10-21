@@ -8,7 +8,10 @@ module Nomis
 
       def index
         offender_ids = JSON.parse(request.body.string)
-        @movements = Offender.includes(:movements).where(offenderNo: offender_ids).flat_map(&:movements)
+        types = params[:movementTypes]
+        @movements = Offender.includes(:movements).joins(:movements).
+            where(offenderNo: offender_ids).
+            merge(Movement.by_type(types)).flat_map(&:movements)
       end
     end
   end
