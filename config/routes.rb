@@ -1,8 +1,6 @@
 # frozen_string_literal: true
 
 Rails.application.routes.draw do
-  get "staff/show"
-  get "users/show"
   ActiveAdmin.routes(self)
 
   root "admin/dashboard#index"
@@ -15,6 +13,7 @@ Rails.application.routes.draw do
       get "/staff/:staffId/emails" => "users#emails"
       get "/staff/:staffId/caseloads" => "users#caseloads"
       get "/staff/roles/:prison_id/role/POM" => "users#roles"
+      post "/movements/offenders" => "movements#index"
     end
   end
 end
