@@ -5,16 +5,11 @@ require "rails_helper"
 RSpec.describe Nomis::Api::BookingsController, type: :controller do
   let(:prison) { create(:prison) }
   let(:offender) { create(:offender, prison: prison) }
-  let(:booking) { create(:booking, offender: offender) }
 
-  it "posts index" do
-    post :index, body: [booking.id].to_json, format: :json
-    expect(response).to be_successful
-    expect(assigns(:bookings)).to eq([booking])
-  end
+  render_views
 
-  context "with render views" do
-    render_views
+  context "with all fields" do
+    let(:booking) { create(:booking, offender: offender) }
 
     it "returns json" do
       post :index, body: [booking.id].to_json, format: :json
@@ -29,6 +24,31 @@ RSpec.describe Nomis::Api::BookingsController, type: :controller do
                                                     sentenceDetail: {
                                                         bookingId: booking.id,
                                                         "automaticReleaseDate" => "2019-12-01",
+                                                        "conditionalReleaseDate" => "2019-12-01",
+                                                        "homeDetentionCurfewEligibilityDate" => "2019-12-01",
+                                                        "paroleEligibilityDate" => "2019-12-01",
+                                                        "releaseDate" => "2019-12-01",
+                                                        "sentenceStartDate" => "2019-12-01",
+                                                        "tariffDate" => "2019-12-01"
+                                                    }.stringify_keys}.stringify_keys])
+    end
+  end
+
+  context 'with fields missing' do
+    let(:booking) { create(:booking, offender: offender, automaticReleaseDate: nil) }
+
+    it "omits nil fields" do
+      post :index, body: [booking.id].to_json, format: :json
+      expect(response).to be_successful
+
+      expect(JSON.parse(response.body))
+          .to eq([
+                                                  { bookingId: booking.id,
+                                                      firstName: offender.firstName,
+                                                      offenderNo: offender.offenderNo,
+                                                lastName: offender.lastName,
+                                                    sentenceDetail: {
+                                                        bookingId: booking.id,
                                                         "conditionalReleaseDate" => "2019-12-01",
                                                         "homeDetentionCurfewEligibilityDate" => "2019-12-01",
                                                         "paroleEligibilityDate" => "2019-12-01",
