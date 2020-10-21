@@ -20,15 +20,22 @@ RSpec.describe Nomis::Api::BookingsController, type: :controller do
       post :index, body: [booking.id].to_json, format: :json
       expect(response).to be_successful
 
-      expect(JSON.parse(response.body)).to eq([{ "firstName" => offender.firstName,
-                                                "lastName" => offender.lastName,
-                                                "automaticReleaseDate" => "2019-12-01",
-                                                "conditionalReleaseDate" => "2019-12-01",
-                                                "homeDetentionCurfewEligibilityDate" => "2019-12-01",
-                                                "paroleEligibilityDate" => "2019-12-01",
-                                                "releaseDate" => "2019-12-01",
-                                                "sentenceStartDate" => "2019-12-01",
-                                                "tariffDate" => "2019-12-01" }])
+      expect(JSON.parse(response.body))
+          .to eq([
+                                                  { bookingId: booking.id,
+                                                      firstName: offender.firstName,
+                                                      offenderNo: offender.offenderNo,
+                                                lastName: offender.lastName,
+                                                    sentenceDetail: {
+                                                        bookingId: booking.id,
+                                                        "automaticReleaseDate" => "2019-12-01",
+                                                        "conditionalReleaseDate" => "2019-12-01",
+                                                        "homeDetentionCurfewEligibilityDate" => "2019-12-01",
+                                                        "paroleEligibilityDate" => "2019-12-01",
+                                                        "releaseDate" => "2019-12-01",
+                                                        "sentenceStartDate" => "2019-12-01",
+                                                        "tariffDate" => "2019-12-01"
+                                                    }.stringify_keys}.stringify_keys])
     end
   end
 end
