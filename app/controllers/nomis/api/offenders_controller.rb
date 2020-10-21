@@ -11,6 +11,10 @@ module Nomis
         prison = Prison.find_by(code: params[:prison_id])
         @offenders = prison.offenders.joins(:booking).offset(offset).limit(limit)
       end
+
+      def show
+        @offender = Offender.find_by(offenderNo: params[:offender_no])
+      end
     end
   end
 end

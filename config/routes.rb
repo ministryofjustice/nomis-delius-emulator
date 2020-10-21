@@ -8,6 +8,7 @@ Rails.application.routes.draw do
   namespace :nomis do
     namespace :api do
       get "/locations/description/:prison_id/inmates" => "offenders#index"
+      get "/prisoners/:offender_no" => "offenders#show"
       post "/offender-sentences/bookings" => "bookings#index"
       get "/users/:username" => "users#show"
       get "/staff/:staffId/emails" => "users#emails"

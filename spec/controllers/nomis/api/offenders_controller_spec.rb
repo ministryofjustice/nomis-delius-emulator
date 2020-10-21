@@ -27,6 +27,22 @@ RSpec.describe Nomis::Api::OffendersController, type: :controller do
                                                  offenderNo: offender.offenderNo,
                                                  receptionDate: offender.receptionDate.to_s }.stringify_keys])
     end
+
+    it "gets show" do
+      get :show, params: { offender_no: offender.offenderNo }, format: :json
+      expect(response).to be_successful
+      expect(JSON.parse(response.body)).to eq([{firstName: offender.firstName,
+                                                 gender: offender.gender,
+                                                 latestBookingId: offender.booking.id,
+                                                 latestLocationId: prison.code,
+                                                 imprisonmentStatus: offender.imprisonmentStatus,
+                                                 dateOfBirth: offender.dateOfBirth.to_s,
+                                                 lastName: offender.lastName,
+                                                 mainOffence: offender.mainOffence,
+                                                 offenderNo: offender.offenderNo,
+                                                 receptionDate: offender.receptionDate.to_s }.stringify_keys])
+    end
+
   end
 
   context "without a booking" do
