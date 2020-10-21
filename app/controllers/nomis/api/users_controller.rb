@@ -5,9 +5,13 @@ module Nomis
     class UsersController < ApplicationController
       respond_to :json
 
-      def show
+      def by_username
         @user = User.find_by(username: params[:username])
         @caseload = Struct.new(:activeCaseLoadId).new(Prison.first.code)
+      end
+
+      def show
+        @user = User.find_by(staffId: params[:staffId])
       end
 
       def emails

@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 json.array!(@users) do |user|
-  json.extract! user, :staffId
+  json.extract! user, :staffId,   :firstName, :lastName, :position
   json.status "ACTIVE"
-  json.position "PRO"
 end

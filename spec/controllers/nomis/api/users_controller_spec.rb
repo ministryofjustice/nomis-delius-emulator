@@ -15,9 +15,24 @@ RSpec.describe Nomis::Api::UsersController, type: :controller do
 
   describe "GET #show" do
     it "returns http success" do
-      get :show, params: { username: "BOB" }, format: :json
+      get :show, params: {staffId: user.id }, format: :json
       expect(response).to have_http_status(:success)
-      expect(JSON.parse(response.body)).to eq({ staffId: user.staffId, username: "BOB", activeCaseLoadId: prison.code }.stringify_keys)
+      expect(JSON.parse(response.body)).to eq({ staffId: user.staffId,
+                                                firstName: user.firstName,
+                                                lastName: user.lastName,
+                                              }.stringify_keys)
+    end
+  end
+
+  describe "GET #by_username" do
+    it "returns http success" do
+      get :by_username, params: {username: "BOB" }, format: :json
+      expect(response).to have_http_status(:success)
+      expect(JSON.parse(response.body)).to eq({ staffId: user.staffId,
+                                                firstName: user.firstName,
+                                                lastName: user.lastName,
+                                                username: "BOB",
+                                                activeCaseLoadId: prison.code }.stringify_keys)
     end
   end
 
@@ -41,7 +56,13 @@ RSpec.describe Nomis::Api::UsersController, type: :controller do
     it "returns http success" do
       get :roles, params: { prison_id: prison.code }, format: :json
       expect(response).to have_http_status(:success)
-      expect(JSON.parse(response.body)).to eq([{ staffId: user.staffId, status: "ACTIVE", position: "PRO" }].map(&:stringify_keys))
+      expect(JSON.parse(response.body))
+          .to eq([{ staffId: user.staffId,
+                    status: "ACTIVE",
+                    position: user.position,
+                                                 firstName: user.firstName,
+                                                 lastName: user.lastName
+                                               }].map(&:stringify_keys))
     end
   end
 end
