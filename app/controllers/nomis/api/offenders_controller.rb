@@ -5,6 +5,9 @@ module Nomis
     class OffendersController < ApplicationController
       respond_to :json
 
+      # This is a POST action but is just a hidden GET really
+      skip_before_action :verify_authenticity_token, only: :assessments
+
       def index
         offset = request.headers["Page-Offset"]
         limit = request.headers["Page-Limit"]
@@ -14,6 +17,10 @@ module Nomis
 
       def show
         @offender = Offender.find_by(offenderNo: params[:offender_no])
+      end
+
+      # This endpoint is used but MOIC implementation is buggy and data is unused
+      def assessments
       end
     end
   end

@@ -12,6 +12,12 @@ RSpec.describe Nomis::Api::OffendersController, type: :controller do
 
     render_views
 
+    it 'assessments endpoint returns empty' do
+      post :assessments, body: [offender.offenderNo].to_json, format: :json
+      expect(response).to be_successful
+      expect(JSON.parse(response.body)).to eq({})
+    end
+
     it "gets index" do
       get :index, params: { prison_id: prison.code }, format: :json
       expect(response).to be_successful

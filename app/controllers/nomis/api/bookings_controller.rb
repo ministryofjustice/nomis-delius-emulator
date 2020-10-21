@@ -6,11 +6,15 @@ module Nomis
       respond_to :json
 
       # This is a POST action but is just a hidden GET really
-      skip_before_action :verify_authenticity_token
+      skip_before_action :verify_authenticity_token, only: :index
 
       def index
         booking_ids = JSON.parse(request.body.string)
         @bookings = Booking.includes(:offender).find(booking_ids)
+      end
+
+      def show
+        @booking = Booking.find params[:id]
       end
     end
   end

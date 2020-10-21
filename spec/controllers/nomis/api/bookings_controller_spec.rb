@@ -11,7 +11,7 @@ RSpec.describe Nomis::Api::BookingsController, type: :controller do
   context "with all fields" do
     let(:booking) { create(:booking, offender: offender) }
 
-    it "returns json" do
+    it "index returns json" do
       post :index, body: [booking.id].to_json, format: :json
       expect(response).to be_successful
 
@@ -31,6 +31,13 @@ RSpec.describe Nomis::Api::BookingsController, type: :controller do
                                                         "sentenceStartDate" => "2019-12-01",
                                                         "tariffDate" => "2019-12-01"
                                                     }.stringify_keys}.stringify_keys])
+    end
+
+    it 'main offence returns a hard-coded string' do
+      get :show, params: { id: booking.id }, format: :json
+      expect(response).to be_successful
+      expect(JSON.parse(response.body)).to eq([{bookingId: booking.id,
+                                               offenceDescription: 'Test Offence Description'}.stringify_keys])
     end
   end
 
