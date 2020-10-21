@@ -6,5 +6,5 @@ json.array!(@movements) do |movement|
   json.createDateTime movement.created_at
   json.offenderNo movement.offender.offenderNo
   json.movementType movement.typecode
-  json.directionCode 'IN'
+  json.directionCode "IN"
 end

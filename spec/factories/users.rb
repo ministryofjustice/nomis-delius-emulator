@@ -5,8 +5,8 @@ FactoryBot.define do
     username { "MyString" }
     staffId { 1 }
     email { "me@example.com" }
-    firstName { 'Bob' }
-    lastName { 'Smith' }
-    position { 'PO' }
+    firstName { "Bob" }
+    lastName { "Smith" }
+    position { "PO" }
   end
 end

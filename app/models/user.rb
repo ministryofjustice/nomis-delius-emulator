@@ -3,5 +3,5 @@
 class User < ApplicationRecord
   validates_presence_of :firstName, :lastName, :staffId
 
-  validates_inclusion_of :position, in: ["PO", "PRO"], allow_nil: false
+  validates_inclusion_of :position, in: %w[PO PRO], allow_nil: false
 end
