@@ -5,7 +5,7 @@ require "rails_helper"
 RSpec.describe Offender, type: :model do
   it "creates ADM movement when first created" do
     expect { create(:offender) }.to change(Movement, :count).by(1)
-    expect(Movement.last.typecode).to eq("ADM")
+    expect(Offender.last.movements.first.typecode).to eq("ADM")
   end
 
   context "when prison changed" do
@@ -17,9 +17,8 @@ RSpec.describe Offender, type: :model do
     it "creates a transfer" do
       expect { described_class.last.update(prison: Prison.last) }.to change(Movement, :count).by(1)
 
-      expect(Movement.last.typecode).to eq("TRN")
-      expect(Movement.last.from_prison).to eq(Prison.first)
-      expect(Movement.last.to_prison).to eq(Prison.last)
+      expect(Offender.last.movements.last.attributes.symbolize_keys.except(:id, :created_at, :updated_at, :offender_id)).
+          to eq(typecode: "TRN", from_prison_id:Prison.first.id, to_prison_id:Prison.last.id)
     end
   end
 end
