@@ -29,19 +29,20 @@ RSpec.describe Nomis::Api::BookingsController, type: :controller do
                                                         "paroleEligibilityDate" => "2019-12-01",
                                                         "releaseDate" => "2019-12-01",
                                                         "sentenceStartDate" => "2019-12-01",
-                                                        "tariffDate" => "2019-12-01"
-                                                    }.stringify_keys}.stringify_keys])
+                                                        "tariffDate" => "2019-12-01",
+                                                    }.stringify_keys }.stringify_keys,
+])
     end
 
-    it 'main offence returns a hard-coded string' do
+    it "main offence returns a hard-coded string" do
       get :show, params: { id: booking.id }, format: :json
       expect(response).to be_successful
-      expect(JSON.parse(response.body)).to eq([{bookingId: booking.id,
-                                               offenceDescription: 'Test Offence Description'}.stringify_keys])
+      expect(JSON.parse(response.body)).to eq([{ bookingId: booking.id,
+                                               offenceDescription: "Test Offence Description" }.stringify_keys])
     end
   end
 
-  context 'with fields missing' do
+  context "with fields missing" do
     let(:booking) { create(:booking, offender: offender, automaticReleaseDate: nil) }
 
     it "omits nil fields" do
@@ -61,8 +62,9 @@ RSpec.describe Nomis::Api::BookingsController, type: :controller do
                                                         "paroleEligibilityDate" => "2019-12-01",
                                                         "releaseDate" => "2019-12-01",
                                                         "sentenceStartDate" => "2019-12-01",
-                                                        "tariffDate" => "2019-12-01"
-                                                    }.stringify_keys}.stringify_keys])
+                                                        "tariffDate" => "2019-12-01",
+                                                    }.stringify_keys }.stringify_keys,
+])
     end
   end
 end

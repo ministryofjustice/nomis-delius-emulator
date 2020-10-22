@@ -15,18 +15,17 @@ RSpec.describe Nomis::Api::UsersController, type: :controller do
 
   describe "GET #show" do
     it "returns http success" do
-      get :show, params: {staffId: user.id }, format: :json
+      get :show, params: { staffId: user.id }, format: :json
       expect(response).to have_http_status(:success)
       expect(JSON.parse(response.body)).to eq({ staffId: user.staffId,
                                                 firstName: user.firstName,
-                                                lastName: user.lastName,
-                                              }.stringify_keys)
+                                                lastName: user.lastName }.stringify_keys)
     end
   end
 
   describe "GET #by_username" do
     it "returns http success" do
-      get :by_username, params: {username: "BOB" }, format: :json
+      get :by_username, params: { username: "BOB" }, format: :json
       expect(response).to have_http_status(:success)
       expect(JSON.parse(response.body)).to eq({ staffId: user.staffId,
                                                 firstName: user.firstName,
@@ -61,8 +60,7 @@ RSpec.describe Nomis::Api::UsersController, type: :controller do
                     status: "ACTIVE",
                     position: user.position,
                                                  firstName: user.firstName,
-                                                 lastName: user.lastName
-                                               }].map(&:stringify_keys))
+                                                 lastName: user.lastName }].map(&:stringify_keys))
     end
   end
 end

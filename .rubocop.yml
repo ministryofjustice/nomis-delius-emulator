@@ -18,7 +18,7 @@ Layout/SpaceInsideArrayLiteralBrackets:
     - 'config/environments/production.rb'
 
 RSpec/ExampleLength:
-  Max: 12
+  Max: 19
 
 Style/FrozenStringLiteralComment:
   Enabled: true

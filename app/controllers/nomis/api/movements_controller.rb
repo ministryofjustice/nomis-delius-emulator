@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Nomis
   module Api
     class MovementsController < ApplicationController
@@ -16,4 +18,3 @@ module Nomis
     end
   end
 end
-

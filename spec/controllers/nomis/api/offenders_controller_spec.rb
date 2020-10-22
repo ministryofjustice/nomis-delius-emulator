@@ -12,7 +12,7 @@ RSpec.describe Nomis::Api::OffendersController, type: :controller do
 
     render_views
 
-    it 'assessments endpoint returns empty' do
+    it "assessments endpoint returns empty" do
       post :assessments, body: [offender.offenderNo].to_json, format: :json
       expect(response).to be_successful
       expect(JSON.parse(response.body)).to eq({})
@@ -37,7 +37,7 @@ RSpec.describe Nomis::Api::OffendersController, type: :controller do
     it "gets show" do
       get :show, params: { offender_no: offender.offenderNo }, format: :json
       expect(response).to be_successful
-      expect(JSON.parse(response.body)).to eq([{firstName: offender.firstName,
+      expect(JSON.parse(response.body)).to eq([{ firstName: offender.firstName,
                                                  gender: offender.gender,
                                                  latestBookingId: offender.booking.id,
                                                  latestLocationId: prison.code,
@@ -48,7 +48,6 @@ RSpec.describe Nomis::Api::OffendersController, type: :controller do
                                                  offenderNo: offender.offenderNo,
                                                  receptionDate: offender.receptionDate.to_s }.stringify_keys])
     end
-
   end
 
   context "without a booking" do

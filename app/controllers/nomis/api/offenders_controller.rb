@@ -20,8 +20,7 @@ module Nomis
       end
 
       # This endpoint is used but MOIC implementation is buggy and data is unused
-      def assessments
-      end
+      def assessments; end
     end
   end
 end
