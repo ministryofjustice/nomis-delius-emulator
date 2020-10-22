@@ -15,4 +15,18 @@ ActiveAdmin.register Booking do
   #   permitted << :other if params[:action] == 'create' && current_user.admin?
   #   permitted
   # end
+  form do |_f|
+    inputs do
+      input :offender
+      input :homeDetentionCurfewEligibilityDate, as: :datepicker
+      input :paroleEligibilityDate, as: :datepicker
+      input :releaseDate, as: :datepicker
+      input :automaticReleaseDate, as: :datepicker
+      input :conditionalReleaseDate, as: :datepicker
+      input :sentenceStartDate, as: :datepicker
+      input :tariffDate, as: :datepicker
+
+    end
+    actions
+  end
 end

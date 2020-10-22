@@ -11,6 +11,11 @@ class Offender < ApplicationRecord
   after_create :create_inward_move
   before_update :create_transfer, if: -> { prison_id_changed? }
 
+  # simple way for active admin to show offender in a friendly way
+  def name
+    "#{firstName} #{lastName} (#{offenderNo})"
+  end
+
 private
 
   def create_inward_move
