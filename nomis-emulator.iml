@@ -44,7 +44,6 @@
     <orderEntry type="library" scope="PROVIDED" name="babel-transpiler (v0.7.0, RVM: ruby-2.6.6 [nomis]) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="bootsnap (v1.4.6, RVM: ruby-2.6.6 [nomis]) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="builder (v3.2.4, RVM: ruby-2.6.6 [nomis]) [gem]" level="application" />
-    <orderEntry type="library" scope="PROVIDED" name="bundler (v1.17.2, RVM: ruby-2.6.6 [nomis]) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="byebug (v11.0.1, RVM: ruby-2.6.6 [nomis]) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="capybara (v3.29.0, RVM: ruby-2.6.6 [nomis]) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="childprocess (v3.0.0, RVM: ruby-2.6.6 [nomis]) [gem]" level="application" />
@@ -93,7 +92,7 @@
     <orderEntry type="library" scope="PROVIDED" name="puma (v3.12.6, RVM: ruby-2.6.6 [nomis]) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="rack (v2.2.3, RVM: ruby-2.6.6 [nomis]) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="rack-test (v1.1.0, RVM: ruby-2.6.6 [nomis]) [gem]" level="application" />
-    <orderEntry type="library" scope="PROVIDED" name="rails (v5.2.4.3, RVM: ruby-2.6.6 [nomis]) [gem]" level="application" />
+    <orderEntry type="library" scope="PROVIDED" name="rails (v5.2.4.4, RVM: ruby-2.6.6 [nomis]) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="rails-controller-testing (v1.0.4, RVM: ruby-2.6.6 [nomis]) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="rails-dom-testing (v2.0.3, RVM: ruby-2.6.6 [nomis]) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="rails-html-sanitizer (v1.3.0, RVM: ruby-2.6.6 [nomis]) [gem]" level="application" />
