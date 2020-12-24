@@ -6,7 +6,7 @@ class Offender < ApplicationRecord
   has_one :booking
 
   validates_presence_of :firstName, :gender, :imprisonmentStatus, :lastName,
-                        :mainOffence, :offenderNo, :receptionDate
+                        :mainOffence, :offenderNo, :receptionDate, :dateOfBirth
 
   after_create :create_inward_move
   before_update :create_transfer, if: -> { prison_id_changed? }

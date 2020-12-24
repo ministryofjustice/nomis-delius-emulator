@@ -23,7 +23,7 @@ module Nomis
       end
 
       def roles
-        @users = User.all
+        @users = User.all.order(:staffId)
       end
     end
   end

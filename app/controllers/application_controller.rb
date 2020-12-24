@@ -10,9 +10,9 @@ class ApplicationController < ActionController::Base
 
   rescue_from ActiveRecord::RecordNotFound, with: :not_found
 
-  private
+private
 
   def not_found
-    render json: { error: 'Not found'}.to_json, status: :not_found
+    render json: { error: "Not found" }.to_json, status: :not_found
   end
 end

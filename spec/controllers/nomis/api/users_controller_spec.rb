@@ -11,10 +11,11 @@ RSpec.describe Nomis::Api::UsersController, type: :controller do
 
   let(:prison) { Prison.last }
 
-  context 'with a user' do
+  context "with a user" do
     before do
       create(:user, username: "BOB")
     end
+
     let(:user) { User.last }
 
     describe "GET #show" do
@@ -61,15 +62,15 @@ RSpec.describe Nomis::Api::UsersController, type: :controller do
         expect(response).to have_http_status(:success)
         expect(JSON.parse(response.body))
           .to eq([{ staffId: user.staffId,
-                    status: "ACTIVE",
                     position: user.position,
+                    positionDescription: 'Probation Officer',
                     firstName: user.firstName,
                     lastName: user.lastName }].map(&:stringify_keys))
       end
     end
   end
 
-  context 'without a user' do
+  context "without a user" do
     describe "GET #show" do
       it "returns 404" do
         get :show, params: { staffId: 123456 }, format: :json

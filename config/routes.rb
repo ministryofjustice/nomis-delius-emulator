@@ -23,4 +23,6 @@ Rails.application.routes.draw do
       post "/movements/offenders" => "movements#index"
     end
   end
+
+  post "/prison-search/prisoner-search/prisoner-numbers" => "offenders#search"
 end
