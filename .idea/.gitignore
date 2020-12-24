@@ -1,5 +1,4 @@
 # Default ignored files
 /workspace.xml
-/.generators
-/.rakeTasks
 /$PRODUCT_WORKSPACE_FILE$
+/.generators
