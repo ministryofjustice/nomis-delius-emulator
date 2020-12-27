@@ -2,5 +2,5 @@
 
 json.array!([@booking]) do |booking|
   json.bookingId booking.id
-  json.offenceDescription "Test Offence Description"
+  json.offenceDescription booking.offender.mainOffence
 end

@@ -15,6 +15,10 @@ module Nomis
             where(offenderNo: offender_ids).
             merge(Movement.by_type(types)).flat_map(&:movements)
       end
+
+      def by_date
+        @movements = []
+      end
     end
   end
 end

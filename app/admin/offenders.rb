@@ -7,7 +7,7 @@ ActiveAdmin.register Offender do
   # Uncomment all parameters which should be permitted for assignment
   #
   permit_params :prison_id, :categoryCode, :gender, :mainOffence, :receptionDate, :firstName, :lastName,
-                :offenderNo, :imprisonmentStatus, :dateOfBirth, :recall_flag
+                :offenderNo, :imprisonmentStatus, :dateOfBirth, :recall_flag, :keyworker_id
   #
   # or
   #
@@ -33,6 +33,7 @@ ActiveAdmin.register Offender do
                   max_date: Time.zone.today - 18.years,
               }
       input :recall_flag
+      input :keyworker
       actions
     end
   end

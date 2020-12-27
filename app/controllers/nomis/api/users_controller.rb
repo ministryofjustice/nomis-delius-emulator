@@ -23,7 +23,11 @@ module Nomis
       end
 
       def roles
-        @users = User.all.order(:staffId)
+        @users = if params[:prison_id] == "LEI"
+                   User.all.order(:staffId)
+                 else
+                   []
+                 end
       end
     end
   end

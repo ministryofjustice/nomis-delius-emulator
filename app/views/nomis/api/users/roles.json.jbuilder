@@ -2,5 +2,5 @@
 
 json.array!(@users) do |user|
   json.extract! user, :staffId, :firstName, :lastName, :position
-  json.positionDescription user.position == 'PO' ? 'Probation Officer' : 'Prison Officer'
+  json.positionDescription user.position == "PO" ? "Probation Officer" : "Prison Officer"
 end

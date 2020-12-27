@@ -19,12 +19,12 @@ RSpec.describe Nomis::Api::UsersController, type: :controller do
     let(:user) { User.last }
 
     describe "GET #show" do
-      it "returns http success" do
+      it "returns http success and upcases name" do
         get :show, params: { staffId: user.id }, format: :json
         expect(response).to have_http_status(:success)
         expect(JSON.parse(response.body)).to eq({ staffId: user.staffId,
-                                                  firstName: user.firstName,
-                                                  lastName: user.lastName }.stringify_keys)
+                                                  firstName: user.firstName.upcase,
+                                                  lastName: user.lastName.upcase }.stringify_keys)
       end
     end
 
@@ -57,13 +57,13 @@ RSpec.describe Nomis::Api::UsersController, type: :controller do
     end
 
     describe "GET #roles" do
-      it "returns http success" do
+      it "returns http success, and capitalizes name" do
         get :roles, params: { prison_id: prison.code }, format: :json
         expect(response).to have_http_status(:success)
         expect(JSON.parse(response.body))
           .to eq([{ staffId: user.staffId,
                     position: user.position,
-                    positionDescription: 'Probation Officer',
+                    positionDescription: "Probation Officer",
                     firstName: user.firstName,
                     lastName: user.lastName }].map(&:stringify_keys))
       end

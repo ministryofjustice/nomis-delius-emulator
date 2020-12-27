@@ -21,8 +21,10 @@ Rails.application.routes.draw do
       get "/staff/roles/:prison_id/role/POM" => "users#roles"
 
       post "/movements/offenders" => "movements#index"
+      get "/movements" => "movements#by_date"
     end
   end
 
   post "/prison-search/prisoner-search/prisoner-numbers" => "offenders#search"
+  get "/keyworker/key-worker/:prison_id/offender/:offender_no" => "offenders#keyworker"
 end

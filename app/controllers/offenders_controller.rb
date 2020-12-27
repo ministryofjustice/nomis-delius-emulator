@@ -10,4 +10,10 @@ class OffendersController < ApplicationController
     ids = JSON.parse(request.body.string).fetch("prisonerNumbers")
     @offenders = Offender.where(offenderNo: ids)
   end
+
+  def keyworker
+    offender = Offender.find_by!(offenderNo: params[:offender_no])
+    @keyworker = offender.keyworker
+    raise ActiveRecord::RecordNotFound unless @keyworker
+  end
 end

@@ -4,6 +4,7 @@ class Offender < ApplicationRecord
   belongs_to :prison
   has_many :movements
   has_one :booking
+  belongs_to :keyworker, class_name: "User", optional: true
 
   validates_presence_of :firstName, :gender, :imprisonmentStatus, :lastName,
                         :mainOffence, :offenderNo, :receptionDate, :dateOfBirth
