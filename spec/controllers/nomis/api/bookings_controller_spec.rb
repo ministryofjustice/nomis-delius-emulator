@@ -34,11 +34,11 @@ RSpec.describe Nomis::Api::BookingsController, type: :controller do
 ])
     end
 
-    it "main offence returns a hard-coded string" do
+    it "main offence returns data from offender" do
       get :show, params: { id: booking.id }, format: :json
       expect(response).to be_successful
       expect(JSON.parse(response.body)).to eq([{ bookingId: booking.id,
-                                               offenceDescription: "Test Offence Description" }.stringify_keys])
+                                               offenceDescription: booking.offender.mainOffence }.stringify_keys])
     end
   end
 

@@ -6,12 +6,12 @@ module Nomis
       respond_to :json
 
       def by_username
-        @user = User.find_by(username: params[:username])
+        @user = User.find_by!(username: params[:username])
         @caseload = Struct.new(:activeCaseLoadId).new(Prison.first.code)
       end
 
       def show
-        @user = User.find_by(staffId: params[:staffId])
+        @user = User.find_by!(staffId: params[:staffId])
       end
 
       def emails
@@ -23,7 +23,11 @@ module Nomis
       end
 
       def roles
-        @users = User.all
+        @users = if params[:prison_id] == "LEI"
+                   User.all.order(:staffId)
+                 else
+                   []
+                 end
       end
     end
   end

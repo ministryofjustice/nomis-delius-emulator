@@ -25,7 +25,6 @@ ActiveAdmin.register Booking do
       input :conditionalReleaseDate, as: :datepicker
       input :sentenceStartDate, as: :datepicker
       input :tariffDate, as: :datepicker
-
     end
     actions
   end

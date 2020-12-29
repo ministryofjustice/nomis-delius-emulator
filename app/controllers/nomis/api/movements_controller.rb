@@ -6,7 +6,7 @@ module Nomis
       respond_to :json
 
       # This is a POST action but is just a hidden GET really
-      skip_before_action :verify_authenticity_token
+      skip_before_action :verify_authenticity_token, only: :index
 
       def index
         offender_ids = JSON.parse(request.body.string)
@@ -14,6 +14,10 @@ module Nomis
         @movements = Offender.includes(:movements).joins(:movements).
             where(offenderNo: offender_ids).
             merge(Movement.by_type(types)).flat_map(&:movements)
+      end
+
+      def by_date
+        @movements = []
       end
     end
   end
