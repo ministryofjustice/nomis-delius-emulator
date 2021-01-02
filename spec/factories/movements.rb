@@ -5,5 +5,6 @@ FactoryBot.define do
     association :offender
     typecode { "ADM" }
     date { Date.today }
+    directionCode { 'IN' }
   end
 end
