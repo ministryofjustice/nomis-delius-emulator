@@ -19,8 +19,10 @@ module Nomis
         @offender = Offender.find_by(offenderNo: params[:offender_no])
       end
 
-      # This endpoint is used but MOIC implementation is buggy and data is unused
-      def assessments; end
+      def assessments
+        offender_ids = JSON.parse(request.body.string)
+        @offenders = Offender.where(offenderNo: offender_ids)
+      end
     end
   end
 end
