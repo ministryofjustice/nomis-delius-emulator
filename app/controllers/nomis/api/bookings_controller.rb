@@ -10,11 +10,11 @@ module Nomis
 
       def index
         booking_ids = JSON.parse(request.body.string)
-        @bookings = Booking.includes(:offender).find(booking_ids)
+        @bookings = Booking.includes(:offender).find(booking_ids.map { |id| id - Offender::BOOKING_ID_OFFSET })
       end
 
       def show
-        @booking = Booking.find params[:id]
+        @booking = Booking.find params[:id].to_i - Offender::BOOKING_ID_OFFSET
       end
     end
   end

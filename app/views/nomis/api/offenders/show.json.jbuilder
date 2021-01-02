@@ -6,7 +6,7 @@ if @offender.present?
                   :gender, :mainOffence, :receptionDate,
                   :firstName, :lastName, :offenderNo, :dateOfBirth,
                   :imprisonmentStatus
-    json.latestBookingId offender.booking.id
+    json.latestBookingId offender.booking_id
     json.latestLocationId offender.prison.code
   end
 else

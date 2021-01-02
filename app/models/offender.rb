@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 class Offender < ApplicationRecord
+  BOOKING_ID_OFFSET = 1_153_750
   belongs_to :prison
   has_many :movements
   has_one :booking
@@ -15,6 +16,10 @@ class Offender < ApplicationRecord
   # simple way for active admin to show offender in a friendly way
   def name
     "#{firstName} #{lastName} (#{offenderNo})"
+  end
+
+  def booking_id
+    booking.id + BOOKING_ID_OFFSET
   end
 
 private

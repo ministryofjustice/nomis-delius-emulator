@@ -12,7 +12,7 @@ RSpec.describe Nomis::Api::BookingsController, type: :controller do
     let(:booking) { create(:booking, offender: offender) }
 
     it "index returns json" do
-      post :index, body: [booking.id].to_json, format: :json
+      post :index, body: [booking.id + Offender::BOOKING_ID_OFFSET].to_json, format: :json
       expect(response).to be_successful
 
       expect(JSON.parse(response.body))
@@ -35,7 +35,7 @@ RSpec.describe Nomis::Api::BookingsController, type: :controller do
     end
 
     it "main offence returns data from offender" do
-      get :show, params: { id: booking.id }, format: :json
+      get :show, params: { id: booking.id + Offender::BOOKING_ID_OFFSET}, format: :json
       expect(response).to be_successful
       expect(JSON.parse(response.body)).to eq([{ bookingId: booking.id,
                                                offenceDescription: booking.offender.mainOffence }.stringify_keys])
@@ -46,7 +46,7 @@ RSpec.describe Nomis::Api::BookingsController, type: :controller do
     let(:booking) { create(:booking, offender: offender, automaticReleaseDate: nil) }
 
     it "omits nil fields" do
-      post :index, body: [booking.id].to_json, format: :json
+      post :index, body: [booking.id + Offender::BOOKING_ID_OFFSET].to_json, format: :json
       expect(response).to be_successful
 
       expect(JSON.parse(response.body))
