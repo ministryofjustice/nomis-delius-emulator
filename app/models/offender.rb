@@ -20,10 +20,10 @@ class Offender < ApplicationRecord
 private
 
   def create_inward_move
-    movements.create!(typecode: "ADM", to_prison: prison)
+    movements.create!(typecode: "ADM", to_prison: prison, date: Date.today)
   end
 
   def create_transfer
-    movements.create!(typecode: "TRN", from_prison_id: prison_id_was, to_prison: prison)
+    movements.create!(typecode: "TRN", from_prison_id: prison_id_was, to_prison: prison, date: Date.today)
   end
 end
