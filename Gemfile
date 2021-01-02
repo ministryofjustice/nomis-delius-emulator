@@ -12,6 +12,7 @@ gem "bootsnap", require: false
 gem "rails", "~> 5.2.0"
 # Use mysql as the database for Active Record
 gem "mysql2", ">= 0.3.18", "< 0.6.0"
+#gem 'pg'
 # Use Puma as the app server
 gem "puma", "~> 3.12"
 # Use SCSS for stylesheets
@@ -22,9 +23,9 @@ gem "uglifier", ">= 1.3.0"
 # gem 'therubyracer', platforms: :ruby
 
 # Use CoffeeScript for .coffee assets and views
-gem "coffee-rails", "~> 4.2"
+#gem "coffee-rails", "~> 4.2"
 # Turbolinks makes navigating your web application faster. Read more: https://github.com/turbolinks/turbolinks
-gem "turbolinks", "~> 5"
+#gem "turbolinks", "~> 5"
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
 gem "jbuilder", "~> 2.5"
 # Use Redis adapter to run Action Cable in production
@@ -68,6 +69,7 @@ group :test do
   gem "database_cleaner"
   gem "rails-controller-testing"
   gem "shoulda-matchers"
+  gem 'simplecov'
 end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem

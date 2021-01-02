@@ -4,6 +4,17 @@
 require "spec_helper"
 ENV["RAILS_ENV"] ||= "test"
 
+require "simplecov"
+SimpleCov.start :rails do
+  add_filter "app/channels"
+  add_filter "app/mailers"
+  add_filter "app/jobs"
+  add_filter "app/admin"
+
+  minimum_coverage 86.24
+  maximum_coverage_drop 0.13
+end
+
 require File.expand_path("../config/environment", __dir__)
 
 # Prevent database truncation if the environment is production
