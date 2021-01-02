@@ -19,13 +19,13 @@ module Nomis
         @movements = Offender.includes(:movements).joins(:movements).
             where(offenderNo: offender_ids).
             merge(Movement.by_type(types)).flat_map(&:movements)
-        # logger.debug "Query String #{request.query_string}"
       end
 
       def by_date
-        fromDateTime = Date.parse(params[:fromDateTime])
-        toDateTime = Date.parse(params[:movementDate])
-        @movements = Movement.where('date > ? and date <= ?', fromDateTime, toDateTime)
+        from_date = Date.parse(params[:fromDateTime])
+        to_date = Date.parse(params[:movementDate])
+        logger.debug("By date from #{from_date} to #{to_date}")
+        @movements = Movement.where('date > ? and date <= ?', from_date, to_date)
       end
     end
   end

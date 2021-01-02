@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_12_27_212723) do
+ActiveRecord::Schema.define(version: 2021_01_02_184900) do
 
   create_table "active_admin_comments", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "namespace"
@@ -48,6 +48,7 @@ ActiveRecord::Schema.define(version: 2020_12_27_212723) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.date "date", null: false
+    t.string "directionCode", limit: 3
     t.index ["offender_id"], name: "index_movements_on_offender_id"
   end
 

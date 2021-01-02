@@ -7,7 +7,7 @@ ActiveAdmin.register Movement do
   #
   # Uncomment all parameters which should be permitted for assignment
   #
-  permit_params :offender_id, :from_prison_id, :to_prison_id, :typecode, :date
+  permit_params :offender_id, :from_prison_id, :to_prison_id, :typecode, :directionCode, :date
   #
   # or
   #
@@ -22,6 +22,7 @@ ActiveAdmin.register Movement do
       input :from_prison
       input :to_prison
       input :typecode
+      input :directionCode
       input :date, as: :datepicker
       actions
     end
