@@ -10,5 +10,5 @@ if @offender.present?
     json.latestLocationId offender.prison.code
   end
 else
-  json.array []
+  json.array! []
 end
