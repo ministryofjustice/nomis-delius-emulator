@@ -1,12 +1,12 @@
 # frozen_string_literal: true
 
 json.array!(@bookings) do |booking|
-  json.bookingId booking.id
+  json.bookingId booking.offender.booking_id
   json.firstName booking.offender.firstName
   json.lastName booking.offender.lastName
   json.offenderNo booking.offender.offenderNo
   json.sentenceDetail do
-    json.bookingId booking.id
+    json.bookingId booking.offender.booking_id
     # [:homeDetentionCurfewEligibilityDate].each do |field|
     #   value = booking.public_send(field)
     #   json.public_send(field, value) if value

@@ -17,27 +17,27 @@ RSpec.describe Nomis::Api::BookingsController, type: :controller do
 
       expect(JSON.parse(response.body))
           .to eq([
-                                                  { bookingId: booking.id,
-                                                      firstName: offender.firstName,
-                                                      offenderNo: offender.offenderNo,
-                                                lastName: offender.lastName,
-                                                    sentenceDetail: {
-                                                        bookingId: booking.id,
-                                                        "automaticReleaseDate" => "2019-12-01",
-                                                        "conditionalReleaseDate" => "2019-12-01",
-                                                        "homeDetentionCurfewEligibilityDate" => "2019-12-01",
-                                                        "paroleEligibilityDate" => "2019-12-01",
-                                                        "releaseDate" => "2019-12-01",
-                                                        "sentenceStartDate" => "2019-12-01",
-                                                        "tariffDate" => "2019-12-01",
-                                                    }.stringify_keys }.stringify_keys,
-])
+                   { bookingId: booking.id + Offender::BOOKING_ID_OFFSET,
+                     firstName: offender.firstName,
+                     offenderNo: offender.offenderNo,
+                     lastName: offender.lastName,
+                     sentenceDetail: {
+                       bookingId: booking.id + Offender::BOOKING_ID_OFFSET,
+                       "automaticReleaseDate" => "2019-12-01",
+                       "conditionalReleaseDate" => "2019-12-01",
+                       "homeDetentionCurfewEligibilityDate" => "2019-12-01",
+                       "paroleEligibilityDate" => "2019-12-01",
+                       "releaseDate" => "2019-12-01",
+                       "sentenceStartDate" => "2019-12-01",
+                       "tariffDate" => "2019-12-01",
+                     }.stringify_keys }.stringify_keys,
+                 ])
     end
 
     it "main offence returns data from offender" do
       get :show, params: { id: booking.id + Offender::BOOKING_ID_OFFSET}, format: :json
       expect(response).to be_successful
-      expect(JSON.parse(response.body)).to eq([{ bookingId: booking.id,
+      expect(JSON.parse(response.body)).to eq([{ bookingId: booking.id + Offender::BOOKING_ID_OFFSET,
                                                offenceDescription: booking.offender.mainOffence }.stringify_keys])
     end
   end
@@ -50,21 +50,20 @@ RSpec.describe Nomis::Api::BookingsController, type: :controller do
       expect(response).to be_successful
 
       expect(JSON.parse(response.body))
-          .to eq([
-                                                  { bookingId: booking.id,
-                                                      firstName: offender.firstName,
-                                                      offenderNo: offender.offenderNo,
-                                                lastName: offender.lastName,
-                                                    sentenceDetail: {
-                                                        bookingId: booking.id,
-                                                        "conditionalReleaseDate" => "2019-12-01",
-                                                        "homeDetentionCurfewEligibilityDate" => "2019-12-01",
-                                                        "paroleEligibilityDate" => "2019-12-01",
-                                                        "releaseDate" => "2019-12-01",
-                                                        "sentenceStartDate" => "2019-12-01",
-                                                        "tariffDate" => "2019-12-01",
-                                                    }.stringify_keys }.stringify_keys,
-])
+          .to eq([{ bookingId: booking.id + Offender::BOOKING_ID_OFFSET,
+                    firstName: offender.firstName,
+                    offenderNo: offender.offenderNo,
+                    lastName: offender.lastName,
+                    sentenceDetail: {
+                      bookingId: booking.id + Offender::BOOKING_ID_OFFSET,
+                      "conditionalReleaseDate" => "2019-12-01",
+                      "homeDetentionCurfewEligibilityDate" => "2019-12-01",
+                      "paroleEligibilityDate" => "2019-12-01",
+                      "releaseDate" => "2019-12-01",
+                      "sentenceStartDate" => "2019-12-01",
+                      "tariffDate" => "2019-12-01",
+                    }.stringify_keys }.stringify_keys,
+                 ])
     end
   end
 end
