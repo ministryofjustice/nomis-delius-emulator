@@ -16,9 +16,8 @@ module Nomis
           types = raw.select { |h| h.starts_with?('movementTypes=')}.map { |t| t.split('=').second }
         end
         offender_ids = JSON.parse(request.body.string)
-        @movements = Offender.includes(:movements).joins(:movements).
-            where(offenderNo: offender_ids).
-            merge(Movement.by_type(types)).flat_map(&:movements)
+        @movements = Movement.includes(:offender, :to_prison, :from_prison).
+          by_type(types).joins(:offender).merge(Offender.by_offender_no(offender_ids))
       end
 
       def by_date

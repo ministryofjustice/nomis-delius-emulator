@@ -8,7 +8,7 @@ class OffendersController < ApplicationController
 
   def search
     ids = JSON.parse(request.body.string).fetch("prisonerNumbers")
-    @offenders = Offender.where(offenderNo: ids)
+    @offenders = Offender.where(offenderNo: ids).to_a
   end
 
   def keyworker
