@@ -9,13 +9,13 @@ module Nomis
       skip_before_action :verify_authenticity_token, only: :index
 
       def index
-        offender_ids = JSON.parse(request.body.string)
         if request.query_string.blank?
           types = params[:movementTypes]
         else
           raw = request.query_string.split('&')
           types = raw.select { |h| h.starts_with?('movementTypes=')}.map { |t| t.split('=').second }
         end
+        offender_ids = JSON.parse(request.body.string)
         @movements = Offender.includes(:movements).joins(:movements).
             where(offenderNo: offender_ids).
             merge(Movement.by_type(types)).flat_map(&:movements)
