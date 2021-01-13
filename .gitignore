@@ -18,4 +18,5 @@
 
 .byebug_history
 /.idea/$CACHE_FILE$
+.idea/.rakeTasks
 /coverage/
