@@ -12,7 +12,10 @@
 
 ActiveRecord::Schema.define(version: 2021_01_02_184900) do
 
-  create_table "active_admin_comments", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+  # These are extensions that must be enabled in order to support this database
+  enable_extension "plpgsql"
+
+  create_table "active_admin_comments", force: :cascade do |t|
     t.string "namespace"
     t.text "body"
     t.string "resource_type"
@@ -26,7 +29,7 @@ ActiveRecord::Schema.define(version: 2021_01_02_184900) do
     t.index ["resource_type", "resource_id"], name: "index_active_admin_comments_on_resource_type_and_resource_id"
   end
 
-  create_table "bookings", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+  create_table "bookings", force: :cascade do |t|
     t.bigint "offender_id", null: false
     t.date "homeDetentionCurfewEligibilityDate"
     t.date "paroleEligibilityDate"
@@ -40,7 +43,7 @@ ActiveRecord::Schema.define(version: 2021_01_02_184900) do
     t.index ["offender_id"], name: "index_bookings_on_offender_id"
   end
 
-  create_table "movements", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+  create_table "movements", force: :cascade do |t|
     t.bigint "offender_id", null: false
     t.bigint "from_prison_id"
     t.bigint "to_prison_id"
@@ -52,7 +55,7 @@ ActiveRecord::Schema.define(version: 2021_01_02_184900) do
     t.index ["offender_id"], name: "index_movements_on_offender_id"
   end
 
-  create_table "offenders", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+  create_table "offenders", force: :cascade do |t|
     t.bigint "prison_id", null: false
     t.string "offenderNo", limit: 7, null: false
     t.string "gender", limit: 1, null: false
@@ -70,14 +73,14 @@ ActiveRecord::Schema.define(version: 2021_01_02_184900) do
     t.index ["prison_id"], name: "index_offenders_on_prison_id"
   end
 
-  create_table "prisons", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+  create_table "prisons", force: :cascade do |t|
     t.string "code", limit: 3, null: false
     t.string "name", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
 
-  create_table "users", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+  create_table "users", force: :cascade do |t|
     t.string "username"
     t.integer "staffId"
     t.string "email"

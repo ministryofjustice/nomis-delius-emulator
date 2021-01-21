@@ -22,7 +22,7 @@ RSpec.describe Nomis::Api::MovementsController, type: :controller do
       expect(JSON.parse(response.body)).
           to eq([{
                      toAgency: prison.code,
-                     createDateTime: JSON.parse(offender.created_at.to_json),
+                     createDateTime: JSON.parse(offender.movements.first.created_at.to_json),
                      movementType: "ADM",
                      directionCode: "IN",
                      offenderNo: offender.offenderNo,
@@ -44,7 +44,7 @@ RSpec.describe Nomis::Api::MovementsController, type: :controller do
       expect(JSON.parse(response.body)).
           to eq([{
                      toAgency: prison.code,
-                     createDateTime: JSON.parse(offender.created_at.to_json),
+                     createDateTime: JSON.parse(offender.movements.first.created_at.to_json),
                      movementType: "ADM",
                      directionCode: "IN",
                      offenderNo: offender.offenderNo,
