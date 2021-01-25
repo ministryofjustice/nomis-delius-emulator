@@ -11,7 +11,7 @@ SimpleCov.start :rails do
   add_filter "app/jobs"
   add_filter "app/admin"
 
-  minimum_coverage 86.24
+  minimum_coverage 84
   maximum_coverage_drop 0.13
 end
 

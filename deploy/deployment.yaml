@@ -1,0 +1,77 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: nomis-delius-emulator
+  labels:
+    app: nomis-delius-emulator
+  annotations:
+    kubernetes.io/change-cause: "<to be filled in deploy job command>"
+spec:
+  replicas: 1
+  revisionHistoryLimit: 1
+  minReadySeconds: 10
+  strategy:
+    rollingUpdate:
+      maxSurge: 100%
+      maxUnavailable: 20%
+    type: RollingUpdate
+  selector:
+    matchLabels:
+      app: nomis-delius-emulator
+  template:
+    metadata:
+      labels:
+        app: nomis-delius-emulator
+    spec:
+      containers:
+        - name: nomis-delius-emulator
+          image: 754256621582.dkr.ecr.eu-west-2.amazonaws.com/offender-management/nomis-delius-emulator:testing
+          imagePullPolicy: Always
+          command: ['sh', '-c', 'bundle exec puma -p 3001 -C ./config/puma.rb --pidfile /tmp/server.pid']
+          ports:
+            - containerPort: 3001
+          livenessProbe:
+            httpGet:
+              path: /health
+              port: 3001
+            initialDelaySeconds: 10
+            periodSeconds: 60
+          readinessProbe:
+            httpGet:
+              path: /health
+              port: 3001
+            initialDelaySeconds: 10
+            periodSeconds: 60
+          resources:
+            limits:
+              memory: "1000Mi"
+              cpu: "1000m"
+            requests:
+              memory: "500Mi"
+              cpu: "50m"
+          envFrom:
+            - configMapRef:
+                name: shared-environment
+            - secretRef:
+                name: nomis-delius-emulator-secrets
+          env:
+            - name: POSTGRES_HOST
+              valueFrom:
+                secretKeyRef:
+                  name: nomis-delius-emulator-rds-instance
+                  key: postgres_host
+            - name: POSTGRES_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: nomis-delius-emulator-rds-instance
+                  key: postgres_password
+            - name: POSTGRES_NAME
+              valueFrom:
+                secretKeyRef:
+                  name: nomis-delius-emulator-rds-instance
+                  key: postgres_name
+            - name: POSTGRES_USER
+              valueFrom:
+                secretKeyRef:
+                  name: nomis-delius-emulator-rds-instance
+                  key: postgres_user

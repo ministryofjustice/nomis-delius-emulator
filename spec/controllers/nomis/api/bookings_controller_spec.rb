@@ -35,7 +35,7 @@ RSpec.describe Nomis::Api::BookingsController, type: :controller do
     end
 
     it "main offence returns data from offender" do
-      get :show, params: { id: booking.id + Offender::BOOKING_ID_OFFSET}, format: :json
+      get :show, params: { id: booking.id + Offender::BOOKING_ID_OFFSET }, format: :json
       expect(response).to be_successful
       expect(JSON.parse(response.body)).to eq([{ bookingId: booking.id + Offender::BOOKING_ID_OFFSET,
                                                offenceDescription: booking.offender.mainOffence }.stringify_keys])
@@ -62,8 +62,7 @@ RSpec.describe Nomis::Api::BookingsController, type: :controller do
                       "releaseDate" => "2019-12-01",
                       "sentenceStartDate" => "2019-12-01",
                       "tariffDate" => "2019-12-01",
-                    }.stringify_keys }.stringify_keys,
-                 ])
+                    }.stringify_keys }.stringify_keys])
     end
   end
 end
