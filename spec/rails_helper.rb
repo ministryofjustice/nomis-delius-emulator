@@ -11,8 +11,8 @@ SimpleCov.start :rails do
   add_filter "app/jobs"
   add_filter "app/admin"
 
-  minimum_coverage 84
-  maximum_coverage_drop 0.13
+  minimum_coverage 100
+  maximum_coverage_drop 0
 end
 
 require File.expand_path("../config/environment", __dir__)

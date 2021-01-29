@@ -24,7 +24,7 @@ RSpec.describe Nomis::Api::OffendersController, type: :controller do
       expect(JSON.parse(response.body)).to eq([{ categoryCode: nil,
                                                  firstName: offender.firstName,
                                                  gender: offender.gender,
-                                                 bookingId: offender.booking.id + Offender::BOOKING_ID_OFFSET,
+                                                 bookingId: offender.booking.id,
                                                  agencyId: prison.code,
                                                  imprisonmentStatus: offender.imprisonmentStatus,
                                                  dateOfBirth: offender.dateOfBirth.to_s,
@@ -39,7 +39,7 @@ RSpec.describe Nomis::Api::OffendersController, type: :controller do
       expect(response).to be_successful
       expect(JSON.parse(response.body)).to eq([{ firstName: offender.firstName,
                                                  gender: offender.gender,
-                                                 latestBookingId: offender.booking.id + Offender::BOOKING_ID_OFFSET,
+                                                 latestBookingId: offender.booking.id,
                                                  latestLocationId: prison.code,
                                                  imprisonmentStatus: offender.imprisonmentStatus,
                                                  dateOfBirth: offender.dateOfBirth.to_s,

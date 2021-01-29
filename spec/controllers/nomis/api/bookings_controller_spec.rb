@@ -12,17 +12,17 @@ RSpec.describe Nomis::Api::BookingsController, type: :controller do
     let(:booking) { create(:booking, offender: offender) }
 
     it "index returns json" do
-      post :index, body: [booking.id + Offender::BOOKING_ID_OFFSET].to_json, format: :json
+      post :index, body: [booking.id].to_json, format: :json
       expect(response).to be_successful
 
       expect(JSON.parse(response.body))
           .to eq([
-                   { bookingId: booking.id + Offender::BOOKING_ID_OFFSET,
+                   { bookingId: booking.id,
                      firstName: offender.firstName,
                      offenderNo: offender.offenderNo,
                      lastName: offender.lastName,
                      sentenceDetail: {
-                       bookingId: booking.id + Offender::BOOKING_ID_OFFSET,
+                       bookingId: booking.id,
                        "automaticReleaseDate" => "2019-12-01",
                        "conditionalReleaseDate" => "2019-12-01",
                        "homeDetentionCurfewEligibilityDate" => "2019-12-01",
@@ -35,9 +35,9 @@ RSpec.describe Nomis::Api::BookingsController, type: :controller do
     end
 
     it "main offence returns data from offender" do
-      get :show, params: { id: booking.id + Offender::BOOKING_ID_OFFSET }, format: :json
+      get :show, params: { id: booking.id }, format: :json
       expect(response).to be_successful
-      expect(JSON.parse(response.body)).to eq([{ bookingId: booking.id + Offender::BOOKING_ID_OFFSET,
+      expect(JSON.parse(response.body)).to eq([{ bookingId: booking.id,
                                                offenceDescription: booking.offender.mainOffence }.stringify_keys])
     end
   end
@@ -46,16 +46,16 @@ RSpec.describe Nomis::Api::BookingsController, type: :controller do
     let(:booking) { create(:booking, offender: offender, automaticReleaseDate: nil) }
 
     it "omits nil fields" do
-      post :index, body: [booking.id + Offender::BOOKING_ID_OFFSET].to_json, format: :json
+      post :index, body: [booking.id].to_json, format: :json
       expect(response).to be_successful
 
       expect(JSON.parse(response.body))
-          .to eq([{ bookingId: booking.id + Offender::BOOKING_ID_OFFSET,
+          .to eq([{ bookingId: booking.id,
                     firstName: offender.firstName,
                     offenderNo: offender.offenderNo,
                     lastName: offender.lastName,
                     sentenceDetail: {
-                      bookingId: booking.id + Offender::BOOKING_ID_OFFSET,
+                      bookingId: booking.id,
                       "conditionalReleaseDate" => "2019-12-01",
                       "homeDetentionCurfewEligibilityDate" => "2019-12-01",
                       "paroleEligibilityDate" => "2019-12-01",
