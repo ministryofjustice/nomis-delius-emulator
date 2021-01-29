@@ -8,6 +8,14 @@ RSpec.describe Offender, type: :model do
     expect(described_class.last.movements.first.typecode).to eq("ADM")
   end
 
+  describe '#name' do
+    let(:offender) { create(:offender) }
+
+    it 'has a friendly name for ActiveAdmin to use' do
+      expect(offender.name).to eq("Fred Bloggs (#{offender.offenderNo})")
+    end
+  end
+
   context "when prison changed" do
     before do
       create(:offender)
