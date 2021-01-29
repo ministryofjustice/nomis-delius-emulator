@@ -6,6 +6,8 @@ Rails.application.routes.draw do
 
   root "admin/dashboard#index"
 
+  get '/health' => 'health#index'
+
   namespace :nomis do
     namespace :api do
       get "/locations/description/:prison_id/inmates" => "offenders#index"

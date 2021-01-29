@@ -1,0 +1,19 @@
+apiVersion: networking.k8s.io/v1beta1
+kind: Ingress
+metadata:
+  name: nomis-delius-emulator
+  namespace: offender-management-staging
+  annotations:
+    kubernetes.io/ingress.class: "nginx"
+spec:
+  tls:
+  - hosts:
+    - nomis-delius-emulator.apps.live-1.cloud-platform.service.justice.gov.uk
+  rules:
+  - host: nomis-delius-emulator.apps.live-1.cloud-platform.service.justice.gov.uk
+    http:
+      paths:
+      - path: /
+        backend:
+          serviceName: nomis-delius-emulator
+          servicePort: 3001

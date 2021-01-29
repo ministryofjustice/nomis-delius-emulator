@@ -12,8 +12,8 @@ module Nomis
         if request.query_string.blank?
           types = params[:movementTypes]
         else
-          raw = request.query_string.split('&')
-          types = raw.select { |h| h.starts_with?('movementTypes=')}.map { |t| t.split('=').second }
+          raw = request.query_string.split("&")
+          types = raw.select { |h| h.starts_with?("movementTypes=") }.map { |t| t.split("=").second }
         end
         offender_ids = JSON.parse(request.body.string)
         @movements = Movement.includes(:offender, :to_prison, :from_prison).
@@ -24,7 +24,7 @@ module Nomis
         from_date = Date.parse(params[:fromDateTime])
         to_date = Date.parse(params[:movementDate])
         logger.debug("By date from #{from_date} to #{to_date}")
-        @movements = Movement.where('date > ? and date <= ?', from_date, to_date)
+        @movements = Movement.where("date > ? and date <= ?", from_date, to_date)
       end
     end
   end

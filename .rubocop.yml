@@ -20,6 +20,9 @@ Layout/SpaceInsideArrayLiteralBrackets:
 RSpec/ExampleLength:
   Max: 19
 
+RSpec/NestedGroups:
+  Max: 4
+
 Style/FrozenStringLiteralComment:
   Enabled: true
 
