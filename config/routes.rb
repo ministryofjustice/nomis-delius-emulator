@@ -6,7 +6,7 @@ Rails.application.routes.draw do
 
   root "admin/dashboard#index"
 
-  get '/health' => 'health#index'
+  get "/health" => "health#index"
 
   namespace :nomis do
     namespace :api do
