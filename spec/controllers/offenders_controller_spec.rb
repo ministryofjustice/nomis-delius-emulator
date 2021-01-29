@@ -15,29 +15,28 @@ RSpec.describe OffendersController, type: :controller do
 
   render_views
 
-  describe 'search' do
-    it 'returns the offenders' do
+  describe "search" do
+    it "returns the offenders" do
       post :search, body: { prisonerNumbers: [offenders.map(&:offenderNo)] }.to_json, format: :json
       expect(response).to be_successful
       expect(JSON.parse(response.body))
         .to match_array([{
-                   "prisonerNumber"=>first_offender.offenderNo,
-                   "recall"=>false
+                   "prisonerNumber" => first_offender.offenderNo,
+                   "recall" => false,
                  },
-                 {
-                   "prisonerNumber"=>last_offender.offenderNo,
-                    "recall"=>false
-                 }
-                 ])
+                         {
+                           "prisonerNumber" => last_offender.offenderNo,
+                            "recall" => false,
+                         }])
     end
   end
 
-  describe 'keyworker' do
-    it 'returns the offenders' do
-      get :keyworker, params: { prison_id: prison.code, offender_no: offenders.first.offenderNo } , format: :json
+  describe "keyworker" do
+    it "returns the offenders" do
+      get :keyworker, params: { prison_id: prison.code, offender_no: offenders.first.offenderNo }, format: :json
       expect(response).to be_successful
       expect(JSON.parse(response.body))
-        .to eq({"firstName"=>"Bob", "lastName"=>"Smith"})
+        .to eq("firstName" => "Bob", "lastName" => "Smith")
     end
   end
 end
