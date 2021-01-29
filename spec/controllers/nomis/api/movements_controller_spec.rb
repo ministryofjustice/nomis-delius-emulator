@@ -14,6 +14,28 @@ RSpec.describe Nomis::Api::MovementsController, type: :controller do
 
   render_views
 
+  describe "#by_date" do
+    it "works" do
+      get :by_date, params: { fromDateTime: 1.day.ago, movementDate: Time.zone.today }, format: :json
+      expect(response).to have_http_status(:success)
+      expect(JSON.parse(response.body)).to eq([{
+            toAgency: prison.code,
+            createDateTime: JSON.parse(offender.movements.first.created_at.to_json),
+            movementType: "ADM",
+            directionCode: "IN",
+            offenderNo: offender.offenderNo,
+          },
+                                               {
+                                                 fromAgency: prison.code,
+                                                 toAgency: prison2.code,
+                                                 createDateTime: JSON.parse(movement.created_at.to_json),
+                                                 movementType: "TRN",
+                                                 directionCode: "IN",
+                                                 offenderNo: offender.offenderNo,
+                                               }].map(&:stringify_keys))
+    end
+  end
+
   describe "GET #index" do
     it "returns http success" do
       post :index, params: { latestOnly: true, movementTypes: %w[ADM TRN] }, body: [offender.offenderNo].to_json, format: :json

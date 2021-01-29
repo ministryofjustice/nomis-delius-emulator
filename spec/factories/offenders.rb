@@ -9,7 +9,10 @@ FactoryBot.define do
     imprisonmentStatus { "SENT03" }
     lastName { "Bloggs" }
     mainOffence { "Robbery" }
-    offenderNo { "G1235FX" }
+    sequence(:offenderNo) do |seq|
+      pad = "%04d" % seq
+      "G#{pad}FX"
+    end
     receptionDate { Time.zone.today - 1.year }
     dateOfBirth { Time.zone.today - 20.years }
   end

@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 class Offender < ApplicationRecord
-  BOOKING_ID_OFFSET = 1_153_750
   belongs_to :prison
   has_many :movements
   has_one :booking
@@ -9,6 +8,8 @@ class Offender < ApplicationRecord
 
   validates_presence_of :firstName, :gender, :imprisonmentStatus, :lastName,
                         :mainOffence, :offenderNo, :receptionDate, :dateOfBirth
+
+  validates_uniqueness_of :offenderNo
 
   after_create :create_inward_move
   before_update :create_transfer, if: -> { prison_id_changed? }
@@ -21,7 +22,7 @@ class Offender < ApplicationRecord
   end
 
   def booking_id
-    booking.id + BOOKING_ID_OFFSET
+    booking.id
   end
 
 private
