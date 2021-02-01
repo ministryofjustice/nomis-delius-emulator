@@ -8,6 +8,7 @@ ruby "2.6.6"
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem "bootsnap", require: false
 gem "pg"
+gem 'sassc-rails'
 gem "rails", "~> 6.0.0"
 # Use Puma as the app server
 gem "puma", "~> 3.12"
@@ -25,7 +26,6 @@ gem "jbuilder", "~> 2.11"
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
 #
-gem 'sassc'
 gem "activeadmin"
 gem "responders"
 
