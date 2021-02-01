@@ -8,6 +8,7 @@ ruby "2.6.6"
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem "bootsnap", require: false
 gem "pg"
+gem 'sassc-rails'
 gem "rails", "~> 6.0.0"
 # Use Puma as the app server
 gem "puma", "~> 3.12"
@@ -19,7 +20,7 @@ gem "uglifier", ">= 1.3.0"
 # gem 'therubyracer', platforms: :ruby
 
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
-gem "jbuilder", "~> 2.5"
+gem "jbuilder", "~> 2.11"
 # Use Redis adapter to run Action Cable in production
 # gem 'redis', '~> 4.0'
 # Use ActiveModel has_secure_password
