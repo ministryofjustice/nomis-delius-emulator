@@ -16,6 +16,10 @@ class Offender < ApplicationRecord
 
   scope :by_offender_no, ->(offender_ids) { where(offenderNo: offender_ids) }
 
+  scope :without_bookings, -> do
+    left_joins(:booking).where("bookings.offender_id is null")
+  end
+
   # simple way for active admin to show offender in a friendly way
   def name
     "#{firstName} #{lastName} (#{offenderNo})"

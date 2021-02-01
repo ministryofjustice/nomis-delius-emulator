@@ -22,10 +22,10 @@ ActiveAdmin.register Offender do
       input :offenderNo
       input :categoryCode
       input :mainOffence
-      input :receptionDate
+      input :receptionDate, as: :datepicker
       input :firstName
       input :lastName
-      input :imprisonmentStatus
+      input :imprisonmentStatus, as: :select, collection: %w[SENT03 LIFE]
       input :dateOfBirth, as: :datepicker,
               datepicker_options: {
                   min_date: Time.zone.today - 80.years,

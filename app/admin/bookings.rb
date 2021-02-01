@@ -17,7 +17,8 @@ ActiveAdmin.register Booking do
   # end
   form do |_f|
     inputs do
-      input :offender
+      # We only want 1 booking per offender, so only list those w/o bookings
+      input :offender, collection: Offender.without_bookings
       input :homeDetentionCurfewEligibilityDate, as: :datepicker
       input :paroleEligibilityDate, as: :datepicker
       input :releaseDate, as: :datepicker

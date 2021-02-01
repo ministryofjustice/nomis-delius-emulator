@@ -8,6 +8,20 @@ RSpec.describe Offender, type: :model do
     expect(described_class.last.movements.first.typecode).to eq("ADM")
   end
 
+  describe "#without_bookings" do
+    before do
+      create(:offender, booking: build(:booking))
+    end
+
+
+    let!(:o1) { create(:offender) }
+    let!(:o2) { create(:offender) }
+
+    it "pulls back non-bookings" do
+      expect(described_class.without_bookings).to match_array [o1, o2]
+    end
+  end
+
   describe "#name" do
     let(:offender) { create(:offender) }
 
