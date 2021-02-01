@@ -189,6 +189,9 @@ workflows:
       - build_and_push_docker_image:
           requires:
             - run_tests
+          filters:
+            branches:
+              only: main
       - deploy_code:
           requires:
             - build_and_push_docker_image
