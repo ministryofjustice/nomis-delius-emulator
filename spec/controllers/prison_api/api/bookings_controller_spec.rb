@@ -2,7 +2,7 @@
 
 require "rails_helper"
 
-RSpec.describe Nomis::Api::BookingsController, type: :controller do
+RSpec.describe PrisonApi::Api::BookingsController, type: :controller do
   let(:prison) { create(:prison) }
   let(:offender) { create(:offender, prison: prison) }
 
@@ -23,7 +23,7 @@ RSpec.describe Nomis::Api::BookingsController, type: :controller do
                      lastName: offender.lastName,
                      sentenceDetail: {
                        bookingId: booking.id,
-                       "automaticReleaseDate" => "2019-12-01",
+                       automaticReleaseDate: "2019-12-01",
                        "conditionalReleaseDate" => "2019-12-01",
                        "homeDetentionCurfewEligibilityDate" => "2019-12-01",
                        "paroleEligibilityDate" => "2019-12-01",

@@ -2,7 +2,7 @@
 
 require "rails_helper"
 
-RSpec.describe Nomis::Api::UsersController, type: :controller do
+RSpec.describe PrisonApi::Api::UsersController, type: :controller do
   before do
     create(:prison)
   end

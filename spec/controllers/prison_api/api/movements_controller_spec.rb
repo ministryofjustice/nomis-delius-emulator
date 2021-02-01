@@ -2,7 +2,7 @@
 
 require "rails_helper"
 
-RSpec.describe Nomis::Api::MovementsController, type: :controller do
+RSpec.describe PrisonApi::Api::MovementsController, type: :controller do
   before do
     create(:movement, offender: offender, from_prison: prison, to_prison: prison2, typecode: "TRN")
   end

@@ -51,7 +51,7 @@
     <orderEntry type="library" scope="PROVIDED" name="crass (v1.0.6, RVM: ruby-2.6.6 [nomis-delius-emulator]) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="database_cleaner (v1.8.5, RVM: ruby-2.6.6 [nomis-delius-emulator]) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="diff-lcs (v1.4.4, RVM: ruby-2.6.6 [nomis-delius-emulator]) [gem]" level="application" />
-    <orderEntry type="library" scope="PROVIDED" name="docile (v1.3.4, RVM: ruby-2.6.6 [nomis-delius-emulator]) [gem]" level="application" />
+    <orderEntry type="library" scope="PROVIDED" name="docile (v1.3.5, RVM: ruby-2.6.6 [nomis-delius-emulator]) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="erubi (v1.10.0, RVM: ruby-2.6.6 [nomis-delius-emulator]) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="execjs (v2.7.0, RVM: ruby-2.6.6 [nomis-delius-emulator]) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="factory_bot (v5.1.1, RVM: ruby-2.6.6 [nomis-delius-emulator]) [gem]" level="application" />
@@ -117,7 +117,7 @@
     <orderEntry type="library" scope="PROVIDED" name="sassc (v2.2.1, RVM: ruby-2.6.6 [nomis-delius-emulator]) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="sassc-rails (v2.1.2, RVM: ruby-2.6.6 [nomis-delius-emulator]) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="shoulda-matchers (v4.4.1, RVM: ruby-2.6.6 [nomis-delius-emulator]) [gem]" level="application" />
-    <orderEntry type="library" scope="PROVIDED" name="simplecov (v0.20.0, RVM: ruby-2.6.6 [nomis-delius-emulator]) [gem]" level="application" />
+    <orderEntry type="library" scope="PROVIDED" name="simplecov (v0.21.2, RVM: ruby-2.6.6 [nomis-delius-emulator]) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="simplecov-html (v0.12.3, RVM: ruby-2.6.6 [nomis-delius-emulator]) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="simplecov_json_formatter (v0.1.2, RVM: ruby-2.6.6 [nomis-delius-emulator]) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="spring (v2.1.0, RVM: ruby-2.6.6 [nomis-delius-emulator]) [gem]" level="application" />

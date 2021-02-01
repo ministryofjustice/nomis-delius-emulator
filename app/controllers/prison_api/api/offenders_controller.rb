@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-module Nomis
+module PrisonApi
   module Api
     class OffendersController < ApplicationController
       respond_to :json
