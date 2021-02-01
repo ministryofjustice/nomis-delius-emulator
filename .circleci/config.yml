@@ -89,9 +89,6 @@ references:
           if [ "${CIRCLE_BRANCH}" == "main" ]; then
             docker tag app "${ECR_ENDPOINT}/${GITHUB_TEAM_NAME_SLUG}/${REPONAME}:latest"
             docker push "${ECR_ENDPOINT}/${GITHUB_TEAM_NAME_SLUG}/${REPONAME}:latest"
-          else
-            docker tag app "${ECR_ENDPOINT}/${GITHUB_TEAM_NAME_SLUG}/${REPONAME}:testing"
-            docker push "${ECR_ENDPOINT}/${GITHUB_TEAM_NAME_SLUG}/${REPONAME}:testing"
           fi
         environment:
           <<: *github_team_name_slug
@@ -108,6 +105,9 @@ jobs:
           keys:
             - nomis-delius-emulator-{{ checksum "Gemfile.lock" }}
             - nomis-delius-emulator-
+      - run:
+          name: Which bundler?
+          command: bundle -v
       - run: bundle check --path vendor/bundle || bundle install --path vendor/bundle
       - save_cache:
           key: nomis-delius-emulator-{{ checksum "Gemfile.lock" }}
@@ -183,15 +183,21 @@ workflows:
   build_and_test:
     jobs:
       - install_dependencies
-      - run_tests:
+      - rubocop:
           requires:
             - install_dependencies
-#      - rubocop:
-#          requires:
-#            - install_dependencies
+      - run_tests:
+          requires:
+            - rubocop
       - build_and_push_docker_image:
           requires:
             - run_tests
+          filters:
+            branches:
+              only: main
       - deploy_code:
           requires:
             - build_and_push_docker_image
+          filters:
+            branches:
+              only: main
