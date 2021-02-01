@@ -8,6 +8,16 @@ require:
   - rubocop-performance
   - rubocop-rails
 
+AllCops:
+  # Exclude anything that isn't really part of our code.
+  # rails_helper is excluded because it's full of solecisms, but it's mostly
+  # generated code and copy-and-pasted snipets from READMEs.
+  Exclude:
+    - 'vendor/**/*'
+    - 'db/schema.rb'
+    - 'spec/rails_helper.rb'
+    - 'bin/*'
+
 # Offense count: 2
 # Cop supports --auto-correct.
 # Configuration parameters: EnforcedStyle, EnforcedStyleForEmptyBrackets.
@@ -33,14 +43,6 @@ Style/FrozenStringLiteralComment:
 RSpec/ImplicitExpect:
   EnforcedStyle: should
 
-# Offense count: 3
-# Cop supports --auto-correct.
-# Configuration parameters: EnforcedStyle.
-# SupportedStyles: implicit, each, example
-RSpec/HookArgument:
-  Exclude:
-    - 'spec/rails_helper.rb'
-
 # Offense count: 12
 RSpec/MultipleExpectations:
   Max: 4
@@ -64,15 +66,3 @@ Rails/HasManyOrHasOneDependent:
 Style/CommentedKeyword:
   Exclude:
     - 'app/admin/dashboard.rb'
-
-# Offense count: 2
-Style/MixinUsage:
-  Exclude:
-    - 'bin/setup'
-    - 'bin/update'
-
-# Offense count: 2
-# Cop supports --auto-correct.
-Style/StderrPuts:
-  Exclude:
-    - 'bin/yarn'

@@ -105,6 +105,9 @@ jobs:
           keys:
             - nomis-delius-emulator-{{ checksum "Gemfile.lock" }}
             - nomis-delius-emulator-
+      - run:
+          name: Which bundler?
+          command: bundle -v
       - run: bundle check --path vendor/bundle || bundle install --path vendor/bundle
       - save_cache:
           key: nomis-delius-emulator-{{ checksum "Gemfile.lock" }}
@@ -180,12 +183,12 @@ workflows:
   build_and_test:
     jobs:
       - install_dependencies
-      - run_tests:
+      - rubocop:
           requires:
             - install_dependencies
-#      - rubocop:
-#          requires:
-#            - install_dependencies
+      - run_tests:
+          requires:
+            - rubocop
       - build_and_push_docker_image:
           requires:
             - run_tests

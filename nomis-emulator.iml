@@ -39,7 +39,7 @@
     <orderEntry type="library" scope="PROVIDED" name="activerecord (v6.0.3.4, RVM: ruby-2.6.6 [nomis-delius-emulator]) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="activestorage (v6.0.3.4, RVM: ruby-2.6.6 [nomis-delius-emulator]) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="activesupport (v6.0.3.4, RVM: ruby-2.6.6 [nomis-delius-emulator]) [gem]" level="application" />
-    <orderEntry type="library" scope="PROVIDED" name="arbre (v1.2.1, RVM: ruby-2.6.6 [nomis-delius-emulator]) [gem]" level="application" />
+    <orderEntry type="library" scope="PROVIDED" name="arbre (v1.4.0, RVM: ruby-2.6.6 [nomis-delius-emulator]) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="ast (v2.4.2, RVM: ruby-2.6.6 [nomis-delius-emulator]) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="babel-source (v5.8.35, RVM: ruby-2.6.6 [nomis-delius-emulator]) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="babel-transpiler (v0.7.0, RVM: ruby-2.6.6 [nomis-delius-emulator]) [gem]" level="application" />
@@ -112,6 +112,7 @@
     <orderEntry type="library" scope="PROVIDED" name="rubocop-rails (v2.5.2, RVM: ruby-2.6.6 [nomis-delius-emulator]) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="rubocop-rspec (v1.41.0, RVM: ruby-2.6.6 [nomis-delius-emulator]) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="ruby-progressbar (v1.11.0, RVM: ruby-2.6.6 [nomis-delius-emulator]) [gem]" level="application" />
+    <orderEntry type="library" scope="PROVIDED" name="ruby2_keywords (v0.0.4, RVM: ruby-2.6.6 [nomis-delius-emulator]) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="ruby_dep (v1.5.0, RVM: ruby-2.6.6 [nomis-delius-emulator]) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="sassc (v2.2.1, RVM: ruby-2.6.6 [nomis-delius-emulator]) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="sassc-rails (v2.1.2, RVM: ruby-2.6.6 [nomis-delius-emulator]) [gem]" level="application" />
