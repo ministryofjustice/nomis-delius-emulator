@@ -23,11 +23,7 @@ module PrisonApi
       end
 
       def roles
-        @users = if params[:prison_id] == "LEI"
-                   User.all.order(:staffId)
-                 else
-                   []
-                 end
+        @users = User.all.order(:staffId)
       end
     end
   end
