@@ -305,6 +305,7 @@ DEPENDENCIES
   rubocop-performance
   rubocop-rails
   rubocop-rspec (>= 1.41)
+  sassc
   shoulda-matchers
   simplecov
   spring
