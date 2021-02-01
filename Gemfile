@@ -25,6 +25,7 @@ gem "jbuilder", "~> 2.11"
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
 #
+gem 'sassc'
 gem "activeadmin"
 gem "responders"
 
