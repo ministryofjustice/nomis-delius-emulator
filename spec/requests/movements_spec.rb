@@ -15,7 +15,7 @@ RSpec.describe "Movements", type: :request do
   describe "GET /api/movements" do
     it "filters by type" do
       headers = { "ACCEPT" => "application/json" }
-      post "/nomis/api/movements/offenders?latestOnly=true&movementTypes=ADM", params: [offender.offenderNo].to_json, headers: headers
+      post "/prison_api/api/movements/offenders?latestOnly=true&movementTypes=ADM", params: [offender.offenderNo].to_json, headers: headers
       expect(response).to have_http_status(:success)
 
       expect(JSON.parse(response.body)).
