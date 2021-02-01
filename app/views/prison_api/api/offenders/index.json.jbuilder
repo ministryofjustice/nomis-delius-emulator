@@ -2,7 +2,7 @@
 
 json.array!(@offenders) do |offender|
   json.extract! offender,
-                :gender, :categoryCode, :mainOffence, :receptionDate,
+                :categoryCode, :mainOffence, :receptionDate,
                 :firstName, :lastName, :offenderNo, :dateOfBirth,
                 :imprisonmentStatus
   json.bookingId offender.booking_id

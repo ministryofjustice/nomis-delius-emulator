@@ -6,7 +6,7 @@ class Offender < ApplicationRecord
   has_one :booking
   belongs_to :keyworker, class_name: "User", optional: true
 
-  validates_presence_of :firstName, :gender, :imprisonmentStatus, :lastName,
+  validates_presence_of :firstName, :imprisonmentStatus, :lastName,
                         :mainOffence, :offenderNo, :receptionDate, :dateOfBirth
 
   validates_uniqueness_of :offenderNo
