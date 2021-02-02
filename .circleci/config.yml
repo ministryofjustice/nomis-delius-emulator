@@ -171,10 +171,9 @@ jobs:
 #      - *configure_gpg
       - deploy:
           name: Deploy to K8s
-#          command: |
-#            kubectl annotate deployments/nomis-delius-emulator kubernetes.io/change-cause="$CIRCLE_BUILD_URL"
-#            kubectl apply --record=false -f ./deploy
           command: |
+            sed -i -e s/:latest/:$CIRCLE_SHA1/ deploy/deployment.yaml
+            kubectl annotate deployments/allocation-manager kubernetes.io/change-cause="$CIRCLE_BUILD_URL"
             kubectl apply --record=false -f ./deploy
           environment:
             <<: *github_team_name_slug
