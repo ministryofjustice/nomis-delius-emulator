@@ -22,7 +22,10 @@ ActiveAdmin.register Offender do
       input :offenderNo
       input :categoryCode
       input :mainOffence
-      input :receptionDate, as: :datepicker
+      input :receptionDate, as: :datepicker,
+            datepicker_options: {
+              max_date: Time.zone.today - 1.week,
+            }
       input :firstName
       input :lastName
       input :imprisonmentStatus, as: :select, collection: %w[SENT03 LIFE]
