@@ -16,4 +16,16 @@ ActiveAdmin.register User do
   #   permitted << :other if params[:action] == 'create' && current_user.admin?
   #   permitted
   # end
+  form do |_f|
+    inputs do
+      input :username
+      input :staffId
+      input :email
+      input :firstName
+      input :lastName
+      input :position, as: :select, collection: [["Probation Officer", "PO"], ["Prison Officer", "PRO"]]
+
+      actions
+    end
+  end
 end
