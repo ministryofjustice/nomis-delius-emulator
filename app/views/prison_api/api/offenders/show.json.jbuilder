@@ -8,6 +8,7 @@ if @offender.present?
                   :imprisonmentStatus
     json.latestBookingId offender.booking_id
     json.latestLocationId offender.prison.code
+    json.convictedStatus "Convicted"
   end
 else
   json.array! []
