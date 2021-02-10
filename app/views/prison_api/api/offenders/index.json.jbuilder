@@ -7,4 +7,5 @@ json.array!(@offenders) do |offender|
                 :imprisonmentStatus
   json.bookingId offender.booking_id
   json.agencyId offender.prison.code
+  json.convictedStatus "Convicted"
 end

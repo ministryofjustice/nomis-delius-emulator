@@ -28,7 +28,7 @@ Layout/SpaceInsideArrayLiteralBrackets:
     - 'config/environments/production.rb'
 
 RSpec/ExampleLength:
-  Max: 12
+  Max: 13
 
 RSpec/NestedGroups:
   Max: 4
