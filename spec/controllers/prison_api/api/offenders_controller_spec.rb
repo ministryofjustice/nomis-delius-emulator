@@ -6,9 +6,65 @@ RSpec.describe PrisonApi::Api::OffendersController, type: :controller do
   let(:prison) { create(:prison) }
 
   context "with one offender" do
-    before { create(:offender, prison: prison, booking: build(:booking)) }
+    let!(:offender) { create(:offender, prison: prison, booking: build(:booking)) }
+    let!(:offender_no_location) { create(:offender, cellLocation: nil, prison: prison, booking: build(:booking)) }
+    let(:offender_json) {
+      {
+        categoryCode: nil,
+        firstName: offender.firstName,
+        bookingId: offender.booking.id,
+        agencyId: prison.code,
+        imprisonmentStatus: offender.imprisonmentStatus,
+        convictedStatus: "Convicted",
+        dateOfBirth: offender.dateOfBirth.to_s,
+        lastName: offender.lastName,
+        mainOffence: offender.mainOffence,
+        offenderNo: offender.offenderNo,
+        assignedLivingUnitDesc: offender.cellLocation,
+        receptionDate: offender.receptionDate.to_s,
+      }.stringify_keys
+    }
 
-    let(:offender) { Offender.last }
+    let(:single_json) {
+      { firstName: offender.firstName,
+        latestBookingId: offender.booking.id,
+        latestLocationId: prison.code,
+        imprisonmentStatus: offender.imprisonmentStatus,
+        internalLocation: offender.cellLocation,
+        dateOfBirth: offender.dateOfBirth.to_s,
+        convictedStatus: "Convicted",
+        lastName: offender.lastName,
+        mainOffence: offender.mainOffence,
+        offenderNo: offender.offenderNo,
+        receptionDate: offender.receptionDate.to_s }.stringify_keys
+    }
+    let(:no_location_json) {
+      {
+        categoryCode: nil,
+        firstName: offender_no_location.firstName,
+        bookingId: offender_no_location.booking.id,
+        agencyId: prison.code,
+        imprisonmentStatus: offender_no_location.imprisonmentStatus,
+        convictedStatus: "Convicted",
+        dateOfBirth: offender_no_location.dateOfBirth.to_s,
+        lastName: offender_no_location.lastName,
+        mainOffence: offender_no_location.mainOffence,
+        offenderNo: offender_no_location.offenderNo,
+        receptionDate: offender_no_location.receptionDate.to_s,
+      }.stringify_keys
+    }
+    let(:single_nolocation_json) {
+      { firstName: offender_no_location.firstName,
+        latestBookingId: offender_no_location.booking.id,
+        latestLocationId: prison.code,
+        imprisonmentStatus: offender_no_location.imprisonmentStatus,
+        dateOfBirth: offender_no_location.dateOfBirth.to_s,
+        convictedStatus: "Convicted",
+        lastName: offender_no_location.lastName,
+        mainOffence: offender_no_location.mainOffence,
+        offenderNo: offender_no_location.offenderNo,
+        receptionDate: offender_no_location.receptionDate.to_s }.stringify_keys
+    }
 
     render_views
 
@@ -21,34 +77,24 @@ RSpec.describe PrisonApi::Api::OffendersController, type: :controller do
     it "gets index" do
       get :index, params: { prison_id: prison.code }, format: :json
       expect(response).to be_successful
-      expect(JSON.parse(response.body)).to eq([{ categoryCode: nil,
-                                                 firstName: offender.firstName,
-                                                 bookingId: offender.booking.id,
-                                                 agencyId: prison.code,
-                                                 imprisonmentStatus: offender.imprisonmentStatus,
-                                                 convictedStatus: "Convicted",
-                                                 dateOfBirth: offender.dateOfBirth.to_s,
-                                                 lastName: offender.lastName,
-                                                 mainOffence: offender.mainOffence,
-                                                 offenderNo: offender.offenderNo,
-                                                 assignedLivingUnitDesc: offender.cellLocation,
-                                                 receptionDate: offender.receptionDate.to_s }.stringify_keys])
+      expect(JSON.parse(response.body))
+        .to eq([offender_json, no_location_json])
     end
 
-    it "gets show" do
-      get :show, params: { offender_no: offender.offenderNo }, format: :json
-      expect(response).to be_successful
-      expect(JSON.parse(response.body)).to eq([{ firstName: offender.firstName,
-                                                 latestBookingId: offender.booking.id,
-                                                 latestLocationId: prison.code,
-                                                 imprisonmentStatus: offender.imprisonmentStatus,
-                                                 internalLocation: offender.cellLocation,
-                                                 dateOfBirth: offender.dateOfBirth.to_s,
-                                                 convictedStatus: "Convicted",
-                                                 lastName: offender.lastName,
-                                                 mainOffence: offender.mainOffence,
-                                                 offenderNo: offender.offenderNo,
-                                                 receptionDate: offender.receptionDate.to_s }.stringify_keys])
+    context "with a location" do
+      it "gets show" do
+        get :show, params: { offender_no: offender.offenderNo }, format: :json
+        expect(response).to be_successful
+        expect(JSON.parse(response.body)).to eq([single_json])
+      end
+    end
+
+    context "without a location" do
+      it "doesnt have a location" do
+        get :show, params: { offender_no: offender_no_location.offenderNo }, format: :json
+        expect(response).to be_successful
+        expect(JSON.parse(response.body)).to eq([single_nolocation_json])
+      end
     end
   end
 
