@@ -15,9 +15,10 @@ ActiveAdmin.register Booking do
   #   permitted << :other if params[:action] == 'create' && current_user.admin?
   #   permitted
   # end
-  form do |_f|
+  form do |f|
     inputs do
-      input :offender
+      # We only want 1 booking per offender, so only list those w/o bookings
+      input :offender, collection: (Offender.without_bookings + [f.object.offender]).compact
       input :homeDetentionCurfewEligibilityDate, as: :datepicker
       input :paroleEligibilityDate, as: :datepicker
       input :releaseDate, as: :datepicker

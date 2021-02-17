@@ -2,7 +2,7 @@
 
 require "rails_helper"
 
-RSpec.describe Nomis::Api::UsersController, type: :controller do
+RSpec.describe PrisonApi::Api::UsersController, type: :controller do
   before do
     create(:prison)
   end
@@ -57,28 +57,15 @@ RSpec.describe Nomis::Api::UsersController, type: :controller do
     end
 
     describe "GET #roles" do
-      context "with leeds" do
-        it "returns http success, and capitalizes name" do
-          get :roles, params: { prison_id: prison.code }, format: :json
-          expect(response).to have_http_status(:success)
-          expect(JSON.parse(response.body))
-              .to eq([{ staffId: user.staffId,
-                        position: user.position,
-                        positionDescription: "Probation Officer",
-                        firstName: user.firstName,
-                        lastName: user.lastName }].map(&:stringify_keys))
-        end
-      end
-
-      context "with another prison" do
-        let(:prison) { build(:prison, code: "WSI") }
-
-        it "returns empry array" do
-          get :roles, params: { prison_id: prison.code }, format: :json
-          expect(response).to have_http_status(:success)
-          expect(JSON.parse(response.body))
-              .to eq([])
-        end
+      it "returns http success, and capitalizes name" do
+        get :roles, params: { prison_id: prison.code }, format: :json
+        expect(response).to have_http_status(:success)
+        expect(JSON.parse(response.body))
+            .to eq([{ staffId: user.staffId,
+                      position: user.position,
+                      positionDescription: "Probation Officer",
+                      firstName: user.firstName,
+                      lastName: user.lastName }].map(&:stringify_keys))
       end
     end
   end

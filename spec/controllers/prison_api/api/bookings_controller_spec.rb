@@ -2,7 +2,7 @@
 
 require "rails_helper"
 
-RSpec.describe Nomis::Api::BookingsController, type: :controller do
+RSpec.describe PrisonApi::Api::BookingsController, type: :controller do
   let(:prison) { create(:prison) }
   let(:offender) { create(:offender, prison: prison) }
 
@@ -10,8 +10,20 @@ RSpec.describe Nomis::Api::BookingsController, type: :controller do
 
   context "with all fields" do
     let(:booking) { create(:booking, offender: offender) }
+    let(:sentence_detail) {
+      {
+        bookingId: booking.id,
+        automaticReleaseDate: "2019-12-01",
+        "conditionalReleaseDate" => "2019-12-01",
+        "homeDetentionCurfewEligibilityDate" => "2019-12-01",
+        "paroleEligibilityDate" => "2019-12-01",
+        "releaseDate" => "2019-12-01",
+        "sentenceStartDate" => "2019-12-01",
+        "tariffDate" => "2019-12-01",
+      }
+    }
 
-    it "index returns json" do
+    it "returns json" do
       post :index, body: [booking.id].to_json, format: :json
       expect(response).to be_successful
 
@@ -21,16 +33,7 @@ RSpec.describe Nomis::Api::BookingsController, type: :controller do
                      firstName: offender.firstName,
                      offenderNo: offender.offenderNo,
                      lastName: offender.lastName,
-                     sentenceDetail: {
-                       bookingId: booking.id,
-                       "automaticReleaseDate" => "2019-12-01",
-                       "conditionalReleaseDate" => "2019-12-01",
-                       "homeDetentionCurfewEligibilityDate" => "2019-12-01",
-                       "paroleEligibilityDate" => "2019-12-01",
-                       "releaseDate" => "2019-12-01",
-                       "sentenceStartDate" => "2019-12-01",
-                       "tariffDate" => "2019-12-01",
-                     }.stringify_keys }.stringify_keys,
+                     sentenceDetail: sentence_detail }.deep_stringify_keys,
                  ])
     end
 
@@ -44,6 +47,17 @@ RSpec.describe Nomis::Api::BookingsController, type: :controller do
 
   context "with fields missing" do
     let(:booking) { create(:booking, offender: offender, automaticReleaseDate: nil) }
+    let(:sentence_detail) {
+      {
+        bookingId: booking.id,
+        "conditionalReleaseDate" => "2019-12-01",
+        "homeDetentionCurfewEligibilityDate" => "2019-12-01",
+        "paroleEligibilityDate" => "2019-12-01",
+        "releaseDate" => "2019-12-01",
+        "sentenceStartDate" => "2019-12-01",
+        "tariffDate" => "2019-12-01",
+      }
+    }
 
     it "omits nil fields" do
       post :index, body: [booking.id].to_json, format: :json
@@ -54,15 +68,7 @@ RSpec.describe Nomis::Api::BookingsController, type: :controller do
                     firstName: offender.firstName,
                     offenderNo: offender.offenderNo,
                     lastName: offender.lastName,
-                    sentenceDetail: {
-                      bookingId: booking.id,
-                      "conditionalReleaseDate" => "2019-12-01",
-                      "homeDetentionCurfewEligibilityDate" => "2019-12-01",
-                      "paroleEligibilityDate" => "2019-12-01",
-                      "releaseDate" => "2019-12-01",
-                      "sentenceStartDate" => "2019-12-01",
-                      "tariffDate" => "2019-12-01",
-                    }.stringify_keys }.stringify_keys])
+                    sentenceDetail: sentence_detail }.deep_stringify_keys])
     end
   end
 end

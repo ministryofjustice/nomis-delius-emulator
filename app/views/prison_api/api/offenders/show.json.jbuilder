@@ -3,11 +3,12 @@
 if @offender.present?
   json.array!([@offender]) do |offender|
     json.extract! offender,
-                  :gender, :mainOffence, :receptionDate,
+                  :mainOffence, :receptionDate,
                   :firstName, :lastName, :offenderNo, :dateOfBirth,
                   :imprisonmentStatus
     json.latestBookingId offender.booking_id
     json.latestLocationId offender.prison.code
+    json.convictedStatus "Convicted"
   end
 else
   json.array! []

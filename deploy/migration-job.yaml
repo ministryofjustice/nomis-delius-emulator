@@ -11,7 +11,7 @@ spec:
     spec:
       containers:
         - name: nomis-delius-emulator-migration
-          image: 754256621582.dkr.ecr.eu-west-2.amazonaws.com/offender-management/nomis-delius-emulator:testing
+          image: 754256621582.dkr.ecr.eu-west-2.amazonaws.com/offender-management/nomis-delius-emulator:latest
           imagePullPolicy: Always
           command: ['sh', '-c', 'bundle exec rails db:migrate && bundle exec rails db:seed']
           envFrom:

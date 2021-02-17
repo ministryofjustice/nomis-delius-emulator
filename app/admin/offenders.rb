@@ -6,7 +6,7 @@ ActiveAdmin.register Offender do
   #
   # Uncomment all parameters which should be permitted for assignment
   #
-  permit_params :prison_id, :categoryCode, :gender, :mainOffence, :receptionDate, :firstName, :lastName,
+  permit_params :prison_id, :categoryCode, :mainOffence, :receptionDate, :firstName, :lastName,
                 :offenderNo, :imprisonmentStatus, :dateOfBirth, :recall_flag, :keyworker_id
   #
   # or
@@ -21,12 +21,14 @@ ActiveAdmin.register Offender do
       input :prison
       input :offenderNo
       input :categoryCode
-      input :gender
       input :mainOffence
-      input :receptionDate
+      input :receptionDate, as: :datepicker,
+            datepicker_options: {
+              max_date: Time.zone.today - 1.week,
+            }
       input :firstName
       input :lastName
-      input :imprisonmentStatus
+      input :imprisonmentStatus, as: :select, collection: %w[SENT03 LIFE]
       input :dateOfBirth, as: :datepicker,
               datepicker_options: {
                   min_date: Time.zone.today - 80.years,

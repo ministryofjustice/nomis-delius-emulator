@@ -7,13 +7,13 @@ metadata:
   annotations:
     kubernetes.io/change-cause: "<to be filled in deploy job command>"
 spec:
-  replicas: 1
+  replicas: 2
   revisionHistoryLimit: 1
   minReadySeconds: 10
   strategy:
     rollingUpdate:
       maxSurge: 100%
-      maxUnavailable: 20%
+      maxUnavailable: 50%
     type: RollingUpdate
   selector:
     matchLabels:
@@ -25,7 +25,7 @@ spec:
     spec:
       containers:
         - name: nomis-delius-emulator
-          image: 754256621582.dkr.ecr.eu-west-2.amazonaws.com/offender-management/nomis-delius-emulator:testing
+          image: 754256621582.dkr.ecr.eu-west-2.amazonaws.com/offender-management/nomis-delius-emulator:latest
           imagePullPolicy: Always
           command: ['sh', '-c', 'bundle exec puma -p 3001 -C ./config/puma.rb --pidfile /tmp/server.pid']
           ports:

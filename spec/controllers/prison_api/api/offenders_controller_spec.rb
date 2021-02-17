@@ -2,7 +2,7 @@
 
 require "rails_helper"
 
-RSpec.describe Nomis::Api::OffendersController, type: :controller do
+RSpec.describe PrisonApi::Api::OffendersController, type: :controller do
   let(:prison) { create(:prison) }
 
   context "with one offender" do
@@ -23,10 +23,10 @@ RSpec.describe Nomis::Api::OffendersController, type: :controller do
       expect(response).to be_successful
       expect(JSON.parse(response.body)).to eq([{ categoryCode: nil,
                                                  firstName: offender.firstName,
-                                                 gender: offender.gender,
                                                  bookingId: offender.booking.id,
                                                  agencyId: prison.code,
                                                  imprisonmentStatus: offender.imprisonmentStatus,
+                                                 convictedStatus: "Convicted",
                                                  dateOfBirth: offender.dateOfBirth.to_s,
                                                  lastName: offender.lastName,
                                                  mainOffence: offender.mainOffence,
@@ -38,11 +38,11 @@ RSpec.describe Nomis::Api::OffendersController, type: :controller do
       get :show, params: { offender_no: offender.offenderNo }, format: :json
       expect(response).to be_successful
       expect(JSON.parse(response.body)).to eq([{ firstName: offender.firstName,
-                                                 gender: offender.gender,
                                                  latestBookingId: offender.booking.id,
                                                  latestLocationId: prison.code,
                                                  imprisonmentStatus: offender.imprisonmentStatus,
                                                  dateOfBirth: offender.dateOfBirth.to_s,
+                                                 convictedStatus: "Convicted",
                                                  lastName: offender.lastName,
                                                  mainOffence: offender.mainOffence,
                                                  offenderNo: offender.offenderNo,

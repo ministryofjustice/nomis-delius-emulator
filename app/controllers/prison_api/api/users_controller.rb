@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-module Nomis
+module PrisonApi
   module Api
     class UsersController < ApplicationController
       respond_to :json
@@ -23,11 +23,7 @@ module Nomis
       end
 
       def roles
-        @users = if params[:prison_id] == "LEI"
-                   User.all.order(:staffId)
-                 else
-                   []
-                 end
+        @users = User.all.order(:staffId)
       end
     end
   end
