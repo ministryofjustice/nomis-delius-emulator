@@ -28,6 +28,7 @@ ActiveAdmin.register Offender do
             }
       input :firstName
       input :lastName
+      input :cellLocation
       input :imprisonmentStatus, as: :select, collection: %w[SENT03 LIFE]
       input :dateOfBirth, as: :datepicker,
               datepicker_options: {
