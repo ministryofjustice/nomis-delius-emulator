@@ -31,6 +31,7 @@ RSpec.describe PrisonApi::Api::OffendersController, type: :controller do
                                                  lastName: offender.lastName,
                                                  mainOffence: offender.mainOffence,
                                                  offenderNo: offender.offenderNo,
+                                                 assignedLivingUnitDesc: offender.cellLocation,
                                                  receptionDate: offender.receptionDate.to_s }.stringify_keys])
     end
 
@@ -41,6 +42,7 @@ RSpec.describe PrisonApi::Api::OffendersController, type: :controller do
                                                  latestBookingId: offender.booking.id,
                                                  latestLocationId: prison.code,
                                                  imprisonmentStatus: offender.imprisonmentStatus,
+                                                 internalLocation: offender.cellLocation,
                                                  dateOfBirth: offender.dateOfBirth.to_s,
                                                  convictedStatus: "Convicted",
                                                  lastName: offender.lastName,

@@ -28,10 +28,15 @@ Layout/SpaceInsideArrayLiteralBrackets:
     - 'config/environments/production.rb'
 
 RSpec/ExampleLength:
-  Max: 13
+  Max: 14
 
 RSpec/NestedGroups:
   Max: 4
+
+Metrics/BlockLength:
+  Exclude:
+    - 'app/admin/*.rb'
+    - 'spec/**/*.rb'
 
 Style/FrozenStringLiteralComment:
   Enabled: true
