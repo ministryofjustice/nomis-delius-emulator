@@ -6,7 +6,7 @@ ActiveAdmin.register Offender do
   #
   # Uncomment all parameters which should be permitted for assignment
   #
-  permit_params :prison_id, :categoryCode, :mainOffence, :receptionDate, :firstName, :lastName,
+  permit_params :prison_id, :categoryCode, :mainOffence, :receptionDate, :firstName, :lastName, :cellLocation,
                 :offenderNo, :imprisonmentStatus, :dateOfBirth, :recall_flag, :keyworker_id
   #
   # or
