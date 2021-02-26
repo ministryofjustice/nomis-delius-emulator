@@ -19,6 +19,7 @@ RSpec.describe PrisonApi::Api::MovementsController, type: :controller do
       {
       toAgency: prison.code,
       createDateTime: JSON.parse(offender.movements.first.date.to_datetime.to_json),
+      movementDate: JSON.parse(offender.movements.first.date.to_json),
       movementType: "ADM",
       directionCode: "IN",
       offenderNo: offender.offenderNo,
@@ -29,6 +30,7 @@ RSpec.describe PrisonApi::Api::MovementsController, type: :controller do
         fromAgency: prison.code,
         toAgency: prison2.code,
         createDateTime: JSON.parse(movement.date.to_datetime.to_json),
+        movementDate: JSON.parse(movement.date.to_json),
         movementType: "TRN",
         directionCode: "IN",
         offenderNo: offender.offenderNo,

@@ -22,6 +22,7 @@ RSpec.describe "Movements", type: :request do
         to eq([{
                  toAgency: prison.code,
                  createDateTime: JSON.parse(offender.movements.first.date.to_datetime.to_json),
+                 movementDate: JSON.parse(offender.movements.first.date.to_json),
                  movementType: "ADM",
                  directionCode: "IN",
                  offenderNo: offender.offenderNo,
