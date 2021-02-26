@@ -18,7 +18,8 @@ RSpec.describe PrisonApi::Api::MovementsController, type: :controller do
     let(:m1) {
       {
       toAgency: prison.code,
-      createDateTime: JSON.parse(offender.movements.first.date.to_datetime.to_json),
+      createDateTime: offender.movements.first.date.to_datetime,
+      movementDate: offender.movements.first.date,
       movementType: "ADM",
       directionCode: "IN",
       offenderNo: offender.offenderNo,
@@ -28,7 +29,8 @@ RSpec.describe PrisonApi::Api::MovementsController, type: :controller do
       {
         fromAgency: prison.code,
         toAgency: prison2.code,
-        createDateTime: JSON.parse(movement.date.to_datetime.to_json),
+        createDateTime: movement.date.to_datetime,
+        movementDate: movement.date,
         movementType: "TRN",
         directionCode: "IN",
         offenderNo: offender.offenderNo,
@@ -39,7 +41,7 @@ RSpec.describe PrisonApi::Api::MovementsController, type: :controller do
       get :by_date, params: { fromDateTime: 1.day.ago, movementDate: Time.zone.today }, format: :json
       expect(response).to have_http_status(:success)
       expect(JSON.parse(response.body)).
-        to eq([m1, m2].map(&:stringify_keys))
+        to eq(JSON.parse([m1, m2].to_json))
     end
   end
 end

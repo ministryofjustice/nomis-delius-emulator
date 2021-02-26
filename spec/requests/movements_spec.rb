@@ -19,13 +19,14 @@ RSpec.describe "Movements", type: :request do
       expect(response).to have_http_status(:success)
 
       expect(JSON.parse(response.body)).
-        to eq([{
+        to eq(JSON.parse([{
                  toAgency: prison.code,
-                 createDateTime: JSON.parse(offender.movements.first.date.to_datetime.to_json),
+                 createDateTime: offender.movements.first.date.to_datetime,
+                 movementDate: offender.movements.first.date,
                  movementType: "ADM",
                  directionCode: "IN",
                  offenderNo: offender.offenderNo,
-               }].map(&:stringify_keys))
+               }].to_json))
     end
   end
 end
