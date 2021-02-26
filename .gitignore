@@ -17,6 +17,9 @@
 /yarn-error.log
 
 .byebug_history
-/.idea/$CACHE_FILE$
-.idea/.rakeTasks
 /coverage/
+.ruby-gemset
+
+# JetBrains IDE config files
+/.idea/
+*.iml
