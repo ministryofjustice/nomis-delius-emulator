@@ -61,7 +61,8 @@ RSpec.describe PrisonApi::Api::UsersController, type: :controller do
         get :roles, params: { prison_id: prison.code }, format: :json
         expect(response).to have_http_status(:success)
         expect(JSON.parse(response.body))
-            .to eq([{ staffId: user.staffId,
+            .to eq([{ agencyId: prison.code,
+                      staffId: user.staffId,
                       position: user.position,
                       positionDescription: "Probation Officer",
                       firstName: user.firstName,
