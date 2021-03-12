@@ -16,18 +16,26 @@ RSpec.describe OffendersController, type: :controller do
   render_views
 
   describe "search" do
+    let(:o1) {
+      {
+        "prisonerNumber" => first_offender.offenderNo,
+        "recall" => false,
+        "cellLocation" => first_offender.cellLocation,
+      }
+    }
+    let(:o2) {
+      {
+        "prisonerNumber" => last_offender.offenderNo,
+        "recall" => false,
+        "cellLocation" => last_offender.cellLocation,
+      }
+    }
+
     it "returns the offenders" do
       post :search, body: { prisonerNumbers: [offenders.map(&:offenderNo)] }.to_json, format: :json
       expect(response).to be_successful
       expect(JSON.parse(response.body))
-        .to match_array([{
-                   "prisonerNumber" => first_offender.offenderNo,
-                   "recall" => false,
-                 },
-                         {
-                           "prisonerNumber" => last_offender.offenderNo,
-                            "recall" => false,
-                         }])
+        .to match_array([o1, o2])
     end
   end
 

@@ -3,4 +3,5 @@
 json.array!(@offenders) do |offender|
   json.prisonerNumber offender.offenderNo
   json.recall offender.recall_flag
+  json.cellLocation offender.cellLocation
 end
