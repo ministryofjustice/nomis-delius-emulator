@@ -17,6 +17,7 @@ AllCops:
     - 'db/schema.rb'
     - 'spec/rails_helper.rb'
     - 'bin/*'
+    - 'Brewfile'
 
 # Offense count: 2
 # Cop supports --auto-correct.
