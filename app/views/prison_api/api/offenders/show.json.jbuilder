@@ -9,6 +9,7 @@ if @offender.present?
     json.latestBookingId offender.booking_id
     json.latestLocationId offender.prison.code
     json.convictedStatus "Convicted"
+    json.currentlyInPrison 'Y'
     json.internalLocation offender.cellLocation if offender.cellLocation.present?
   end
 else

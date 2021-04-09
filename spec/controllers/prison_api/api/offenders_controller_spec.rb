@@ -22,6 +22,7 @@ RSpec.describe PrisonApi::Api::OffendersController, type: :controller do
         offenderNo: offender.offenderNo,
         assignedLivingUnitDesc: offender.cellLocation,
         receptionDate: offender.receptionDate.to_s,
+        currentlyInPrison: 'Y',
       }.stringify_keys
     }
 
@@ -36,7 +37,8 @@ RSpec.describe PrisonApi::Api::OffendersController, type: :controller do
         lastName: offender.lastName,
         mainOffence: offender.mainOffence,
         offenderNo: offender.offenderNo,
-        receptionDate: offender.receptionDate.to_s }.stringify_keys
+        receptionDate: offender.receptionDate.to_s,
+        currentlyInPrison: 'Y',}.stringify_keys
     }
     let(:no_location_json) {
       {
@@ -51,6 +53,7 @@ RSpec.describe PrisonApi::Api::OffendersController, type: :controller do
         mainOffence: offender_no_location.mainOffence,
         offenderNo: offender_no_location.offenderNo,
         receptionDate: offender_no_location.receptionDate.to_s,
+        currentlyInPrison: 'Y',
       }.stringify_keys
     }
     let(:single_nolocation_json) {
@@ -63,7 +66,8 @@ RSpec.describe PrisonApi::Api::OffendersController, type: :controller do
         lastName: offender_no_location.lastName,
         mainOffence: offender_no_location.mainOffence,
         offenderNo: offender_no_location.offenderNo,
-        receptionDate: offender_no_location.receptionDate.to_s }.stringify_keys
+        receptionDate: offender_no_location.receptionDate.to_s,
+        currentlyInPrison: 'Y',}.stringify_keys
     }
 
     render_views
