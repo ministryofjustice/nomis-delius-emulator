@@ -27,5 +27,9 @@ module NomisEmulator
     # Application configuration can go into files in config/initializers
     # -- all .rb files in that directory are automatically loaded after loading
     # the framework and any gems in your application.
+
+    # Read in variables from the environment
+    config.admin_username = ENV["ADMIN_USERNAME"]&.strip
+    config.admin_password = ENV["ADMIN_PASSWORD"]&.strip
   end
 end
