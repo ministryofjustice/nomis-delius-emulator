@@ -10,6 +10,18 @@ class ApplicationController < ActionController::Base
 
   rescue_from ActiveRecord::RecordNotFound, with: :not_found
 
+  # Apply HTTP Basic auth, requiring the credentials specified in the environment
+  def authenticate_admin_user!
+    expect_username = Rails.configuration.admin_username
+    expect_password = Rails.configuration.admin_password
+
+    return if expect_username.blank? && expect_password.blank?
+
+    authenticate_or_request_with_http_basic do |username, password|
+      username == expect_username && password == expect_password
+    end
+  end
+
 private
 
   def not_found
