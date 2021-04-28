@@ -10,7 +10,6 @@ RSpec.describe PrisonApi::Api::OffendersController, type: :controller do
     let!(:offender_no_location) { create(:offender, cellLocation: nil, prison: prison, booking: build(:booking)) }
     let(:offender_json) {
       {
-        categoryCode: nil,
         firstName: offender.firstName,
         bookingId: offender.booking.id,
         agencyId: prison.code,
@@ -41,7 +40,6 @@ RSpec.describe PrisonApi::Api::OffendersController, type: :controller do
     }
     let(:no_location_json) {
       {
-        categoryCode: nil,
         firstName: offender_no_location.firstName,
         bookingId: offender_no_location.booking.id,
         agencyId: prison.code,
@@ -70,10 +68,13 @@ RSpec.describe PrisonApi::Api::OffendersController, type: :controller do
 
     render_views
 
-    it "assessments endpoint returns classification code" do
+    it "assessments endpoint returns category code" do
       post :assessments, body: [offender.offenderNo].to_json, format: :json
       expect(response).to be_successful
-      expect(JSON.parse(response.body)).to eq([{ "classificationCode" => nil }])
+      expect(JSON.parse(response.body)).to eq([{ offenderNo: offender.offenderNo,
+                                                 classificationCode: "C",
+                                                 classification: "Cat C",
+                                                 approvalDate: offender.updated_at.to_date.to_s }.stringify_keys])
     end
 
     it "gets index" do

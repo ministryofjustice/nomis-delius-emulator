@@ -4,6 +4,7 @@ FactoryBot.define do
   factory :offender do
     association :prison
 
+    categoryCode { "C" }
     firstName { "Fred" }
     imprisonmentStatus { "SENT03" }
     lastName { "Bloggs" }
