@@ -3,15 +3,10 @@
 require "rails_helper"
 
 RSpec.describe OffendersController, type: :controller do
-  before do
-    create(:offender, prison: prison, keyworker: build(:user))
-    create(:offender, prison: prison)
-  end
-
   let(:prison) { create(:prison) }
-  let(:offenders) { Offender.all }
-  let(:first_offender) { Offender.first }
-  let(:last_offender) { Offender.last }
+  let!(:first_offender) { create(:offender, imprisonmentStatus: "LIFE", prison: prison, keyworker: build(:user)) }
+  let!(:last_offender) { create(:offender, prison: prison) }
+  let(:offenders) { [first_offender, last_offender] }
 
   render_views
 
@@ -20,6 +15,9 @@ RSpec.describe OffendersController, type: :controller do
       {
         "prisonerNumber" => first_offender.offenderNo,
         "recall" => false,
+        "indeterminateSentence" => true,
+        "imprisonmentStatus" => "LIFE",
+        "imprisonmentStatusDescription" => "Emulated LIFE Sentence",
         "cellLocation" => first_offender.cellLocation,
       }
     }
@@ -27,6 +25,9 @@ RSpec.describe OffendersController, type: :controller do
       {
         "prisonerNumber" => last_offender.offenderNo,
         "recall" => false,
+        "indeterminateSentence" => false,
+        "imprisonmentStatus" => "SENT03",
+        "imprisonmentStatusDescription" => "Emulated SENT03 Sentence",
         "cellLocation" => last_offender.cellLocation,
       }
     }
