@@ -138,4 +138,28 @@ RSpec.describe PrisonApi::Api::OffendersController, type: :controller do
       expect(assigns(:offenders).map(&:offenderNo)).to eq(%w[G1006FX G1007FX G1008FX G1009FX G1010FX])
     end
   end
+
+  describe "#assessments" do
+    context "when offenders are missing a category code" do
+      let!(:offender_cat_a) { create(:offender, categoryCode: "A") }
+      let!(:offender_cat_d) { create(:offender, categoryCode: "D") }
+      let!(:offender_no_cat) { create(:offender, categoryCode: nil) }
+
+      render_views
+
+      it "excludes them from the list" do
+        offender_nos = [offender_cat_a, offender_cat_d, offender_no_cat].map(&:offenderNo)
+        post :assessments, body: offender_nos.to_json, format: :json
+        expect(response).to be_successful
+
+        response_array = JSON.parse(response.body)
+        expect(response_array.count).to eq(2)
+        expect(response_array.map { |a| [a["offenderNo"], a["classificationCode"]] })
+          .to eq [
+                   [offender_cat_a.offenderNo, "A"],
+                   [offender_cat_d.offenderNo, "D"],
+                 ]
+      end
+    end
+  end
 end
