@@ -22,6 +22,7 @@ module PrisonApi
       def assessments
         offender_ids = JSON.parse(request.body.string)
         @offenders = Offender.where(offenderNo: offender_ids)
+                             .select { |o| o.categoryCode.present? }
       end
     end
   end
