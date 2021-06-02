@@ -45,7 +45,7 @@ end
 group :development do
   gem "listen", ">= 3.0.5", "< 3.6"
 
-  gem "rubocop-govuk", "~> 2.0"
+  gem "rubocop-govuk", "~> 3.15"
   gem "rubocop-performance"
   gem "rubocop-rails"
   gem "rubocop-rspec", ">= 1.41"
