@@ -29,7 +29,7 @@ ActiveAdmin.register Offender do
       input :firstName
       input :lastName
       input :cellLocation
-      input :imprisonmentStatus, as: :select, collection: %w[SENT03 LIFE]
+      input :imprisonmentStatus, as: :select, collection: [%w[Determinate SENT03], %w[Inderminate LIFE]]
       input :dateOfBirth, as: :datepicker,
               datepicker_options: {
                   min_date: Time.zone.today - 80.years,

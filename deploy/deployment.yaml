@@ -24,10 +24,14 @@ spec:
         app: nomis-delius-emulator
     spec:
       containers:
+        # The check_pending! line is needed to make async k8s migrations work smoothly.
+        # We don't want the application to start whilst a migration is still in
+        # progress as this would cache and out-of-date schema and result in a non-functional
+        # application instance
         - name: nomis-delius-emulator
           image: 754256621582.dkr.ecr.eu-west-2.amazonaws.com/offender-management/nomis-delius-emulator:latest
           imagePullPolicy: Always
-          command: ['sh', '-c', 'bundle exec puma -p 3001 -C ./config/puma.rb --pidfile /tmp/server.pid']
+          command: ['sh', '-c', 'bundle exec rails r ActiveRecord::Migration.check_pending! && bundle exec puma -p 3001 -C ./config/puma.rb --pidfile /tmp/server.pid']
           ports:
             - containerPort: 3001
           livenessProbe:
