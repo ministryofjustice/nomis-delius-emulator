@@ -16,7 +16,7 @@ spec:
           command: ['sh', '-c', 'bundle exec rails db:migrate && bundle exec rails db:seed']
           envFrom:
             - configMapRef:
-                name: shared-environment
+                name: emulator-environment
             - secretRef:
                 name: nomis-delius-emulator-secrets
           env:
