@@ -5,6 +5,7 @@ json.array!(@movements) do |movement|
   json.toAgency movement.to_prison.code
   json.createDateTime movement.date.to_datetime
   json.movementDate movement.date
+  json.movementTime "00:00:00"
   json.offenderNo movement.offender.offenderNo
   json.movementType movement.typecode
   json.directionCode movement.directionCode
