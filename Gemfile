@@ -43,7 +43,7 @@ group :development, :test do
 end
 
 group :development do
-  gem "listen", ">= 3.0.5", "< 3.6"
+  gem "listen", ">= 3.0.5", "< 3.7"
 
   gem "rubocop-govuk", "~> 2.0"
   gem "rubocop-performance"
