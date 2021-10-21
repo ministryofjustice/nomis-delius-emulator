@@ -3,7 +3,7 @@
 source "https://rubygems.org"
 git_source(:github) do |repo| "https://github.com/#{repo}.git" end
 
-ruby "2.6.6"
+ruby "3.0.2"
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem "bootsnap", require: false
@@ -63,6 +63,7 @@ group :test do
   gem "rails-controller-testing"
   gem "shoulda-matchers"
   gem "simplecov"
+  gem "rspec_junit_formatter"
 end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem

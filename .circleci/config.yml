@@ -16,7 +16,7 @@ references:
   test_container_config: &test_container_config
     resource_class: small
     docker:
-      - image: circleci/ruby:2.6.6-node-browsers
+      - image: cimg/ruby:3.0.2-node
         environment:
           ECR_ENDPOINT: 754256621582.dkr.ecr.eu-west-2.amazonaws.com
           RAILS_ENV: test
@@ -57,14 +57,6 @@ references:
         /usr/libexec/gpg-preset-passphrase --preset --passphrase $GPG_PASSPHRASE $GPG_KEY_KEYGRIP_ID
         git-crypt unlock
 
-  install_aws_cli: &install_aws_cli
-    run:
-      name: Set up aws
-      command: |
-        sudo apt-get update
-        sudo apt-get --assume-yes install python3-pip
-        sudo pip3 install awscli
-
   build_docker_image: &build_docker_image
     run:
       name: Build docker image
@@ -82,8 +74,7 @@ references:
     run:
       name: Push docker image
       command: |
-        login="$(aws ecr get-login --region eu-west-2 --no-include-email)"
-        ${login}
+        aws ecr get-login-password --region eu-west-2 | docker login --username AWS --password-stdin "$ECR_ENDPOINT"
         docker tag app "${ECR_ENDPOINT}/${GITHUB_TEAM_NAME_SLUG}/${REPONAME}:${CIRCLE_SHA1}"
         docker push "${ECR_ENDPOINT}/${GITHUB_TEAM_NAME_SLUG}/${REPONAME}:${CIRCLE_SHA1}"
         if [ "${CIRCLE_BRANCH}" == "main" ]; then
@@ -95,35 +86,45 @@ references:
         REPONAME: nomis-delius-emulator
 
 version: 2.1
+
+orbs:
+  aws-cli: circleci/aws-cli@2.0.3
+
 jobs:
   install_dependencies:
     <<: *defaults
     <<: *test_container_config
     steps:
       - checkout
+      - attach_workspace:
+          at: ~/
       - restore_cache:
-          keys:
-            - nomis-delius-emulator-{{ checksum "Gemfile.lock" }}
-            - nomis-delius-emulator-
+          key: nomis-delius-emulator-{{ checksum "Gemfile.lock" }}-v1 # increment v number to bust cache
       - run:
           name: Which bundler?
           command: bundle -v
-      - run: bundle check --path vendor/bundle || bundle install --path vendor/bundle
+      - run:
+          name: Install ruby gems
+          command: |
+            bundle config set path 'vendor/bundle'
+            bundle check || bundle install
       - save_cache:
-          key: nomis-delius-emulator-{{ checksum "Gemfile.lock" }}
+          key: nomis-delius-emulator-{{ checksum "Gemfile.lock" }}-v1 # increment v number to bust cache
           paths:
             - ~/repo/vendor/bundle
+      - persist_to_workspace:
+          root: ~/
+          paths:
+            - repo/vendor/bundle
+            - .bundle/config
 
   rubocop:
     <<: *defaults
     <<: *test_container_config
     steps:
       - checkout
-      - restore_cache:
-          keys:
-            - nomis-delius-emulator-{{ checksum "Gemfile.lock" }}
-            - nomis-delius-emulator-
-      - run: bundle check --path vendor/bundle || bundle install --path vendor/bundle
+      - attach_workspace:
+          at: ~/
       - run:
           name: Rubocop
           command: bundle exec rubocop
@@ -133,17 +134,13 @@ jobs:
     <<: *test_container_config
     steps:
       - checkout
-      - restore_cache:
-          keys:
-            - nomis-delius-emulator-{{ checksum "Gemfile.lock" }}
-            - nomis-delius-emulator-
+      - attach_workspace:
+          at: ~/
       - run:
-          name: Which bundler?
-          command: bundle -v
-      - run: bundle check --path vendor/bundle || bundle install --path vendor/bundle
-      - run:
-          name: Run Actual Tests
-          command: bundle exec rake spec
+          name: Run RSpec tests
+          command: bundle exec rspec --format progress --format RspecJunitFormatter --out ~/rspec/rspec.xml
+      - store_test_results:
+          path: ~/rspec
 
   build_and_push_docker_image:
     <<: *defaults
@@ -154,7 +151,7 @@ jobs:
           at: ~/
       - setup_remote_docker:
           docker_layer_caching: true
-      - *install_aws_cli
+      - aws-cli/install
       - *build_docker_image
       - *push_docker_image
 
@@ -188,9 +185,10 @@ workflows:
             - install_dependencies
       - run_tests:
           requires:
-            - rubocop
+            - install_dependencies
       - build_and_push_docker_image:
           requires:
+            - rubocop
             - run_tests
           filters:
             branches:
