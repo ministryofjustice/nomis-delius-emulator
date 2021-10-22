@@ -8,7 +8,7 @@ ruby "3.0.2"
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem "bootsnap", require: false
 gem "pg"
-gem "rails", "~> 6.0.0"
+gem "rails", "~> 6.1.0"
 gem "sassc-rails"
 # Use Puma as the app server
 gem "puma", "~> 5.3"
@@ -43,16 +43,16 @@ group :development, :test do
 end
 
 group :development do
-  gem "listen", ">= 3.0.5", "< 3.6"
+  gem "listen"
 
-  gem "rubocop-govuk", "~> 2.0"
+  gem "rubocop-govuk"
   gem "rubocop-performance"
   gem "rubocop-rails"
-  gem "rubocop-rspec", ">= 1.41"
+  gem "rubocop-rspec"
 
   # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
   gem "spring"
-  gem "spring-watcher-listen", "~> 2.0.0"
+  gem "spring-watcher-listen"
 
   # Access an IRB console on exception pages or by using <%= console %> anywhere in the code.
   # gem "web-console", ">= 3.3.0"
