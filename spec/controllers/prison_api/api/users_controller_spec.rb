@@ -74,15 +74,15 @@ RSpec.describe PrisonApi::Api::UsersController, type: :controller do
   context "without a user" do
     describe "GET #show" do
       it "returns 404" do
-        get :show, params: { staffId: 123456 }, format: :json
-        expect(response).to have_http_status(404)
+        get :show, params: { staffId: 123_456 }, format: :json
+        expect(response).to have_http_status(:not_found)
       end
     end
 
     describe "GET #by_username" do
       it "returns 404" do
         get :by_username, params: { username: "BOB" }, format: :json
-        expect(response).to have_http_status(404)
+        expect(response).to have_http_status(:not_found)
       end
     end
   end

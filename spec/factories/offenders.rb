@@ -10,7 +10,7 @@ FactoryBot.define do
     lastName { "Bloggs" }
     mainOffence { "Robbery" }
     sequence(:offenderNo) do |seq|
-      pad = "%04d" % seq
+      pad = sprintf("%04d", seq)
       "G#{pad}FX"
     end
     receptionDate { Time.zone.today - 1.year }

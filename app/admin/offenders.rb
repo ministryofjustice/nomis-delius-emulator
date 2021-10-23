@@ -23,18 +23,18 @@ ActiveAdmin.register Offender do
       input :categoryCode
       input :mainOffence
       input :receptionDate, as: :datepicker,
-            datepicker_options: {
-              max_date: Time.zone.today - 1.week,
-            }
+                            datepicker_options: {
+                              max_date: Time.zone.today - 1.week,
+                            }
       input :firstName
       input :lastName
       input :cellLocation
       input :imprisonmentStatus, as: :select, collection: [%w[Determinate SENT03], %w[Inderminate LIFE]]
       input :dateOfBirth, as: :datepicker,
-              datepicker_options: {
-                  min_date: Time.zone.today - 80.years,
-                  max_date: Time.zone.today - 18.years,
-              }
+                          datepicker_options: {
+                            min_date: Time.zone.today - 80.years,
+                            max_date: Time.zone.today - 18.years,
+                          }
       input :recall_flag
       input :keyworker
       actions

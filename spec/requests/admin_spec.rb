@@ -27,7 +27,7 @@ RSpec.describe "Admin", type: :request do
 
       it "is world accessible" do
         get_without_auth
-        expect(response).to have_http_status(200)
+        expect(response).to have_http_status(:ok)
       end
     end
 
@@ -60,7 +60,7 @@ RSpec.describe "Admin", type: :request do
 
         it "lets you in" do
           get_with_auth
-          expect(response).to have_http_status(200)
+          expect(response).to have_http_status(:ok)
         end
       end
     end
