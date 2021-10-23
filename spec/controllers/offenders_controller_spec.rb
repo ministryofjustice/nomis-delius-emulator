@@ -11,7 +11,7 @@ RSpec.describe OffendersController, type: :controller do
   render_views
 
   describe "search" do
-    let(:o1) {
+    let(:o1) do
       {
         "prisonerNumber" => first_offender.offenderNo,
         "recall" => false,
@@ -20,8 +20,8 @@ RSpec.describe OffendersController, type: :controller do
         "imprisonmentStatusDescription" => "Emulated LIFE Sentence",
         "cellLocation" => first_offender.cellLocation,
       }
-    }
-    let(:o2) {
+    end
+    let(:o2) do
       {
         "prisonerNumber" => last_offender.offenderNo,
         "recall" => false,
@@ -30,7 +30,7 @@ RSpec.describe OffendersController, type: :controller do
         "imprisonmentStatusDescription" => "Emulated SENT03 Sentence",
         "cellLocation" => last_offender.cellLocation,
       }
-    }
+    end
 
     it "returns the offenders" do
       post :search, body: { prisonerNumbers: [offenders.map(&:offenderNo)] }.to_json, format: :json

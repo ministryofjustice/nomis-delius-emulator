@@ -8,7 +8,7 @@ RSpec.describe PrisonApi::Api::OffendersController, type: :controller do
   context "with one offender" do
     let!(:offender) { create(:offender, prison: prison, booking: build(:booking)) }
     let!(:offender_no_location) { create(:offender, cellLocation: nil, prison: prison, booking: build(:booking)) }
-    let(:offender_json) {
+    let(:offender_json) do
       {
         firstName: offender.firstName,
         bookingId: offender.booking.id,
@@ -22,9 +22,9 @@ RSpec.describe PrisonApi::Api::OffendersController, type: :controller do
         assignedLivingUnitDesc: offender.cellLocation,
         receptionDate: offender.receptionDate.to_s,
       }.stringify_keys
-    }
+    end
 
-    let(:single_json) {
+    let(:single_json) do
       { firstName: offender.firstName,
         latestBookingId: offender.booking.id,
         latestLocationId: prison.code,
@@ -37,8 +37,8 @@ RSpec.describe PrisonApi::Api::OffendersController, type: :controller do
         mainOffence: offender.mainOffence,
         offenderNo: offender.offenderNo,
         receptionDate: offender.receptionDate.to_s }.stringify_keys
-    }
-    let(:no_location_json) {
+    end
+    let(:no_location_json) do
       {
         firstName: offender_no_location.firstName,
         bookingId: offender_no_location.booking.id,
@@ -51,8 +51,8 @@ RSpec.describe PrisonApi::Api::OffendersController, type: :controller do
         offenderNo: offender_no_location.offenderNo,
         receptionDate: offender_no_location.receptionDate.to_s,
       }.stringify_keys
-    }
-    let(:single_nolocation_json) {
+    end
+    let(:single_nolocation_json) do
       { firstName: offender_no_location.firstName,
         latestBookingId: offender_no_location.booking.id,
         latestLocationId: prison.code,
@@ -64,7 +64,7 @@ RSpec.describe PrisonApi::Api::OffendersController, type: :controller do
         mainOffence: offender_no_location.mainOffence,
         offenderNo: offender_no_location.offenderNo,
         receptionDate: offender_no_location.receptionDate.to_s }.stringify_keys
-    }
+    end
 
     render_views
 
@@ -156,9 +156,9 @@ RSpec.describe PrisonApi::Api::OffendersController, type: :controller do
         expect(response_array.count).to eq(2)
         expect(response_array.map { |a| [a["offenderNo"], a["classificationCode"]] })
           .to eq [
-                   [offender_cat_a.offenderNo, "A"],
-                   [offender_cat_d.offenderNo, "D"],
-                 ]
+            [offender_cat_a.offenderNo, "A"],
+            [offender_cat_d.offenderNo, "D"],
+          ]
       end
     end
   end

@@ -11,21 +11,12 @@ require:
 AllCops:
   # Exclude anything that isn't really part of our code.
   # rails_helper is excluded because it's full of solecisms, but it's mostly
-  # generated code and copy-and-pasted snipets from READMEs.
+  # generated code and copy-and-pasted snippets from READMEs.
   Exclude:
     - 'vendor/**/*'
     - 'db/schema.rb'
     - 'spec/rails_helper.rb'
     - 'bin/*'
-
-# Offense count: 2
-# Cop supports --auto-correct.
-# Configuration parameters: EnforcedStyle, EnforcedStyleForEmptyBrackets.
-# SupportedStyles: space, no_space, compact
-# SupportedStylesForEmptyBrackets: space, no_space
-Layout/SpaceInsideArrayLiteralBrackets:
-  Exclude:
-    - 'config/environments/production.rb'
 
 RSpec/ExampleLength:
   Max: 10
@@ -41,33 +32,8 @@ Metrics/BlockLength:
 Style/FrozenStringLiteralComment:
   Enabled: true
 
-# Offense count: 1
-# Cop supports --auto-correct.
-# Configuration parameters: .
-# SupportedStyles: is_expected, should
-RSpec/ImplicitExpect:
-  EnforcedStyle: should
-
-# Offense count: 12
 RSpec/MultipleExpectations:
   Max: 4
 
-# Offense count: 1
-# Configuration parameters: EnforcedStyle.
-# SupportedStyles: slashes, arguments
-Rails/FilePath:
-  Exclude:
-    - 'config/environments/development.rb'
-
-# Offense count: 3
-# Configuration parameters: Include.
-# Include: app/models/**/*.rb
-Rails/HasManyOrHasOneDependent:
-  Exclude:
-    - 'app/models/offender.rb'
-    - 'app/models/prison.rb'
-
-# Offense count: 1
-Style/CommentedKeyword:
-  Exclude:
-    - 'app/admin/dashboard.rb'
+RSpec/MultipleMemoizedHelpers:
+  Enabled: false

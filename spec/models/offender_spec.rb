@@ -13,7 +13,6 @@ RSpec.describe Offender, type: :model do
       create(:offender, booking: build(:booking))
     end
 
-
     let!(:o1) { create(:offender) }
     let!(:o2) { create(:offender) }
 
@@ -39,8 +38,8 @@ RSpec.describe Offender, type: :model do
     it "creates a transfer" do
       expect { described_class.last.update(prison: Prison.last) }.to change(Movement, :count).by(1)
 
-      expect(described_class.last.movements.last.attributes.symbolize_keys.except(:id, :date, :created_at, :updated_at, :offender_id)).
-          to eq(typecode: "TRN", directionCode: "IN", from_prison_id: Prison.first.id, to_prison_id: Prison.last.id)
+      expect(described_class.last.movements.last.attributes.symbolize_keys.except(:id, :date, :created_at, :updated_at, :offender_id))
+          .to eq(typecode: "TRN", directionCode: "IN", from_prison_id: Prison.first.id, to_prison_id: Prison.last.id)
     end
   end
 end

@@ -6,28 +6,26 @@ class Offender < ApplicationRecord
   has_one :booking
   belongs_to :keyworker, class_name: "User", optional: true
 
-  validates_presence_of :firstName, :imprisonmentStatus, :lastName,
-                        :mainOffence, :offenderNo, :receptionDate, :dateOfBirth
+  validates :firstName, :imprisonmentStatus, :lastName,
+            :mainOffence, :offenderNo, :receptionDate, :dateOfBirth, presence: true
 
-  validates_uniqueness_of :offenderNo
+  validates :offenderNo, uniqueness: true
 
   after_create :create_inward_move
   before_update :create_transfer, if: -> { prison_id_changed? }
 
   scope :by_offender_no, ->(offender_ids) { where(offenderNo: offender_ids) }
 
-  scope :without_bookings, -> do
+  scope :without_bookings, lambda {
     left_joins(:booking).where("bookings.offender_id is null")
-  end
+  }
 
   # simple way for active admin to show offender in a friendly way
   def name
     "#{firstName} #{lastName} (#{offenderNo})"
   end
 
-  def booking_id
-    booking.id
-  end
+  delegate :id, to: :booking, prefix: true
 
 private
 
