@@ -4,56 +4,55 @@ require "rails_helper"
 
 RSpec.describe "Prisoner Offender Search API", type: :request do
   let(:base_url) { "/prison-search" }
+  let(:response_json) { JSON.parse(response.body) }
 
   let(:leeds) { create(:prison, code: "LEI", name: "Leeds") }
   let(:pentonville) { create(:prison, code: "PVI", name: "Pentonville") }
 
-  let(:offender_1) { create(:offender, imprisonmentStatus: "LIFE", prison: leeds, keyworker: build(:user)) }
-  let(:offender_2) { create(:offender, prison: leeds) }
-  let(:offender_3) { create(:offender, prison: pentonville) }
-  let!(:offenders) { [offender_1, offender_2, offender_3] }
+  let!(:offender_1) do
+    # in HMP Leeds with life sentence (indeterminate)
+    create(:offender,
+           imprisonmentStatus: "LIFE",
+           prison: leeds,
+           keyworker: build(:user),
+           booking: build(:booking))
+  end
 
-  let(:response_json) { JSON.parse(response.body) }
+  let!(:offender_2) do
+    # in HMP Leeds with determinate sentence
+    create(:offender,
+           prison: leeds,
+           booking: build(:booking))
+  end
+
+  let!(:offender_3) do
+    # in HMP Pentonville with determinate sentence
+    create(:offender,
+           prison: pentonville,
+           booking: build(:booking))
+  end
 
   describe "POST /prisoner-search/prisoner-numbers" do
-    let(:o1) do
-      {
-        "prisonerNumber" => offender_1.offenderNo,
-        "recall" => false,
-        "indeterminateSentence" => true,
-        "imprisonmentStatus" => "LIFE",
-        "imprisonmentStatusDescription" => "Emulated LIFE Sentence",
-        "cellLocation" => offender_1.cellLocation,
-      }
-    end
-    let(:o2) do
-      {
-        "prisonerNumber" => offender_2.offenderNo,
-        "recall" => false,
-        "indeterminateSentence" => false,
-        "imprisonmentStatus" => "SENT03",
-        "imprisonmentStatusDescription" => "Emulated SENT03 Sentence",
-        "cellLocation" => offender_2.cellLocation,
-      }
-    end
-    let(:o3) do
-      {
-        "prisonerNumber" => offender_3.offenderNo,
-        "recall" => false,
-        "indeterminateSentence" => false,
-        "imprisonmentStatus" => "SENT03",
-        "imprisonmentStatusDescription" => "Emulated SENT03 Sentence",
-        "cellLocation" => offender_3.cellLocation,
-      }
-    end
-
-    it "returns the offenders" do
+    it "returns the requested offenders" do
       post "#{base_url}/prisoner-search/prisoner-numbers",
-           params: { prisonerNumbers: offenders.map(&:offenderNo) },
+           params: { prisonerNumbers: [offender_1.offenderNo, offender_3.offenderNo] },
            as: :json
 
       expect(response).to be_successful
-      expect(response_json).to eq json_object([o1, o2, o3])
+      expect(response_json).to eq [
+        json_offender(offender_1),
+        json_offender(offender_3),
+      ]
+    end
+  end
+
+  describe "GET /prisoner-search/prison/{prisonId}" do
+    it "returns offenders in the requested prison" do
+      get "#{base_url}/prisoner-search/prison/#{leeds.code}"
+
+      expect(response).to be_successful
+      expect(response_json.fetch("content")).to contain_exactly(json_offender(offender_1), json_offender(offender_2))
+      expect(response_json.fetch("content")).not_to include(json_offender(offender_3))
     end
   end
 
@@ -64,5 +63,36 @@ private
   # e.g. date objects will be serialized and re-hydrated as strings
   def json_object(object)
     JSON.parse(object.to_json)
+  end
+
+  def json_offender(offender)
+    booking = offender.booking
+
+    json_object({
+      "prisonerNumber" => offender.offenderNo,
+      "bookingId" => booking.id.to_s,
+      "firstName" => offender.firstName,
+      "lastName" => offender.lastName,
+      "dateOfBirth" => offender.dateOfBirth,
+      "status" => "ACTIVE IN",
+      "lastMovementTypeCode" => "ADM",
+      "lastMovementReasonCode" => "INT",
+      "inOutStatus" => "IN",
+      "prisonId" => offender.prison.code,
+      "cellLocation" => offender.cellLocation,
+      "legalStatus" => offender.legal_status,
+      "imprisonmentStatus" => offender.imprisonmentStatus,
+      "imprisonmentStatusDescription" => "Emulated #{offender.imprisonmentStatus} Sentence",
+      "mostSeriousOffence" => "Robbery",
+      "recall" => false,
+      "indeterminateSentence" => (offender.imprisonmentStatus == "LIFE"),
+      "homeDetentionCurfewEligibilityDate" => booking.homeDetentionCurfewEligibilityDate,
+      "paroleEligibilityDate" => booking.paroleEligibilityDate,
+      "releaseDate" => booking.releaseDate,
+      "automaticReleaseDate" => booking.automaticReleaseDate,
+      "conditionalReleaseDate" => booking.conditionalReleaseDate,
+      "sentenceStartDate" => booking.sentenceStartDate,
+      "tariffDate" => booking.tariffDate,
+    })
   end
 end

@@ -8,7 +8,11 @@ module SearchApi
     respond_to :json
 
     def search_prisoner_numbers
-      @offenders = Offender.where(offenderNo: params["prisonerNumbers"])
+      @offenders = Offender.where(offenderNo: params["prisonerNumbers"]).includes(:booking)
+    end
+
+    def search_prison_id
+      @offenders = Prison.find_by(code: params[:code]).offenders.includes(:booking)
     end
   end
 end
