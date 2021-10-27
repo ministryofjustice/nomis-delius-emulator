@@ -27,6 +27,16 @@ class Offender < ApplicationRecord
 
   delegate :id, to: :booking, prefix: true
 
+  def legal_status
+    if recall_flag
+      "RECALL"
+    elsif imprisonmentStatus == "LIFE"
+      "INDETERMINATE_SENTENCE"
+    else
+      "SENTENCED"
+    end
+  end
+
 private
 
   def create_inward_move

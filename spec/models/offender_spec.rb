@@ -42,4 +42,26 @@ RSpec.describe Offender, type: :model do
           .to eq(typecode: "TRN", directionCode: "IN", from_prison_id: Prison.first.id, to_prison_id: Prison.last.id)
     end
   end
+
+  describe "#legal_status" do
+    subject { offender.legal_status }
+
+    context "when offender has a LIFE sentence" do
+      let(:offender) { build(:offender, imprisonmentStatus: "LIFE", recall_flag: false) }
+
+      it { is_expected.to eq "INDETERMINATE_SENTENCE" }
+    end
+
+    context "when offender has a determinate sentence" do
+      let(:offender) { build(:offender, imprisonmentStatus: "SENT03", recall_flag: false) }
+
+      it { is_expected.to eq "SENTENCED" }
+    end
+
+    context "when the offender is a recall" do
+      let(:offender) { build(:offender, imprisonmentStatus: "SENT03", recall_flag: true) }
+
+      it { is_expected.to eq "RECALL" }
+    end
+  end
 end

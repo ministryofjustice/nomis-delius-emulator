@@ -31,6 +31,7 @@ Rails.application.routes.draw do
   namespace :search_api, path: "/prison-search" do
     defaults format: :json do
       post "/prisoner-search/prisoner-numbers" => "offenders#search_prisoner_numbers"
+      get "/prisoner-search/prison/:code" => "offenders#search_prison_id"
     end
   end
 
