@@ -10,12 +10,7 @@ Rails.application.routes.draw do
 
   namespace :prison_api do
     namespace :api do
-      get "/locations/description/:prison_id/inmates" => "offenders#index"
-      get "/prisoners/:offender_no" => "offenders#show"
       post "/offender-assessments/CATEGORY" => "offenders#assessments"
-
-      post "/offender-sentences/bookings" => "bookings#index"
-      get "/bookings/:id/mainOffence" => "bookings#show"
 
       get "/users/:username" => "users#by_username"
       get "/staff/:staffId" => "users#show"
