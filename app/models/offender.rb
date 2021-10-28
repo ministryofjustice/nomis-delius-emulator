@@ -9,7 +9,11 @@ class Offender < ApplicationRecord
   validates :firstName, :imprisonmentStatus, :lastName,
             :mainOffence, :offenderNo, :receptionDate, :dateOfBirth, presence: true
 
-  validates :offenderNo, uniqueness: true
+  validates :offenderNo, uniqueness: true,
+                         format: {
+                           with: /\A[A-Z][0-9]{4}[A-Z]{2}\z/,
+                           message: "must be of the form <letter><4 numbers><2 letters> (all uppercase)",
+                         }
 
   after_create :create_inward_move, :create_active_booking
   before_update :create_transfer, if: -> { prison_id_changed? }
