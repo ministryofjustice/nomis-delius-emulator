@@ -14,22 +14,19 @@ RSpec.describe "Prisoner Offender Search API", type: :request do
     create(:offender,
            imprisonmentStatus: "LIFE",
            prison: leeds,
-           keyworker: build(:user),
-           booking: build(:booking))
+           keyworker: build(:user))
   end
 
   let!(:offender_2) do
     # in HMP Leeds with determinate sentence
     create(:offender,
-           prison: leeds,
-           booking: build(:booking))
+           prison: leeds)
   end
 
   let!(:offender_3) do
     # in HMP Pentonville with determinate sentence
     create(:offender,
-           prison: pentonville,
-           booking: build(:booking))
+           prison: pentonville)
   end
 
   describe "POST /prisoner-search/prisoner-numbers" do
@@ -93,6 +90,6 @@ private
       "conditionalReleaseDate" => booking.conditionalReleaseDate,
       "sentenceStartDate" => booking.sentenceStartDate,
       "tariffDate" => booking.tariffDate,
-    })
+    }.compact)
   end
 end
