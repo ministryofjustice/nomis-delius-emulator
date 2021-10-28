@@ -58,11 +58,18 @@ RSpec.describe "Movements", type: :request do
       }
     end
 
-    it "works" do
+    it "works for 4 days ago" do
+      get "/prison_api/api/movements", params: { fromDateTime: 5.days.ago, movementDate: 4.days.ago }, headers: headers
+      expect(response).to have_http_status(:success)
+      expect(JSON.parse(response.body))
+        .to eq(JSON.parse([m1].to_json))
+    end
+
+    it "works for today" do
       get "/prison_api/api/movements", params: { fromDateTime: 1.day.ago, movementDate: Time.zone.today }, headers: headers
       expect(response).to have_http_status(:success)
       expect(JSON.parse(response.body))
-        .to eq(JSON.parse([m1, m2].to_json))
+        .to eq(JSON.parse([m2].to_json))
     end
   end
 end

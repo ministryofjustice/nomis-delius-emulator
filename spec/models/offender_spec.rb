@@ -3,21 +3,26 @@
 require "rails_helper"
 
 RSpec.describe Offender, type: :model do
-  it "creates ADM movement when first created" do
-    expect { create(:offender) }.to change(Movement, :count).by(1)
-    expect(described_class.last.movements.first.typecode).to eq("ADM")
-  end
-
-  describe "#without_bookings" do
-    before do
-      create(:offender, booking: build(:booking))
+  describe "when creating a new offender" do
+    it "creates ADM movement" do
+      expect { create(:offender) }.to change(Movement, :count).by(1)
+      expect(described_class.last.movements.first.typecode).to eq("ADM")
     end
 
-    let!(:o1) { create(:offender) }
-    let!(:o2) { create(:offender) }
+    context "with a LIFE sentence" do
+      it "creates a booking" do
+        expect { create(:offender, imprisonmentStatus: "LIFE") }.to change(Booking, :count).by(1)
+        expect(described_class.last.booking.sentenceStartDate).to be_past
+        expect(described_class.last.booking.tariffDate).to be_future
+      end
+    end
 
-    it "pulls back non-bookings" do
-      expect(described_class.without_bookings).to match_array [o1, o2]
+    context "with a determinate sentence" do
+      it "creates a booking" do
+        expect { create(:offender, imprisonmentStatus: "SENT03") }.to change(Booking, :count).by(1)
+        expect(described_class.last.booking.sentenceStartDate).to be_past
+        expect(described_class.last.booking.conditionalReleaseDate).to be_future
+      end
     end
   end
 

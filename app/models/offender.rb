@@ -2,8 +2,8 @@
 
 class Offender < ApplicationRecord
   belongs_to :prison
-  has_many :movements
-  has_one :booking
+  has_many :movements, dependent: :destroy
+  has_one :booking, dependent: :destroy
   belongs_to :keyworker, class_name: "User", optional: true
 
   validates :firstName, :imprisonmentStatus, :lastName,
@@ -11,14 +11,10 @@ class Offender < ApplicationRecord
 
   validates :offenderNo, uniqueness: true
 
-  after_create :create_inward_move
+  after_create :create_inward_move, :create_active_booking
   before_update :create_transfer, if: -> { prison_id_changed? }
 
   scope :by_offender_no, ->(offender_ids) { where(offenderNo: offender_ids) }
-
-  scope :without_bookings, lambda {
-    left_joins(:booking).where("bookings.offender_id is null")
-  }
 
   # simple way for active admin to show offender in a friendly way
   def name
@@ -40,10 +36,20 @@ class Offender < ApplicationRecord
 private
 
   def create_inward_move
-    movements.create!(typecode: "ADM", directionCode: "IN", to_prison: prison, date: Time.zone.today)
+    movements.create!(typecode: "ADM", directionCode: "IN", to_prison: prison, date: 4.days.ago)
   end
 
   def create_transfer
     movements.create!(typecode: "TRN", directionCode: "IN", from_prison_id: prison_id_was, to_prison: prison, date: Time.zone.today)
+  end
+
+  def create_active_booking
+    release = if imprisonmentStatus == "LIFE"
+                { tariffDate: 5.years.from_now }
+              else
+                { conditionalReleaseDate: 5.years.from_now, releaseDate: 5.years.from_now }
+              end
+
+    create_booking!({ sentenceStartDate: 1.week.ago }.merge(release))
   end
 end

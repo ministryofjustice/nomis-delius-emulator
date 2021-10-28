@@ -6,7 +6,7 @@ ActiveAdmin.register Booking do
   #
   # Uncomment all parameters which should be permitted for assignment
   #
-  permit_params :offender_id, :homeDetentionCurfewEligibilityDate, :paroleEligibilityDate, :releaseDate, :automaticReleaseDate, :conditionalReleaseDate, :sentenceStartDate, :tariffDate
+  permit_params :homeDetentionCurfewEligibilityDate, :paroleEligibilityDate, :releaseDate, :automaticReleaseDate, :conditionalReleaseDate, :sentenceStartDate, :tariffDate
   #
   # or
   #
@@ -16,9 +16,8 @@ ActiveAdmin.register Booking do
   #   permitted
   # end
   form do |f|
+    h2 "Booking Details for #{f.object.offender.name}"
     inputs do
-      # We only want 1 booking per offender, so only list those w/o bookings
-      input :offender, collection: (Offender.without_bookings + [f.object.offender]).compact
       input :homeDetentionCurfewEligibilityDate, as: :datepicker
       input :paroleEligibilityDate, as: :datepicker
       input :releaseDate, as: :datepicker
