@@ -102,7 +102,7 @@ private
       "conditionalReleaseDate" => booking.conditionalReleaseDate,
       "sentenceStartDate" => booking.sentenceStartDate,
       "tariffDate" => booking.tariffDate,
-      "restrictedPatient" => offender.restrictedPatient
+      "restrictedPatient" => offender.restrictedPatient,
     }.compact)
   end
 end
