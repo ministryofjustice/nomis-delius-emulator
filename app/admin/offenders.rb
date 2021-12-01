@@ -36,7 +36,7 @@ ActiveAdmin.register Offender do
                             max_date: Time.zone.today - 18.years,
                           }
       input :recall_flag
-      input :restrictedPatient, label: 'Restricted Patient'
+      input :restrictedPatient, label: "Restricted Patient"
       input :keyworker
       actions
     end
