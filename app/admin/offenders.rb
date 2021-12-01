@@ -6,8 +6,8 @@ ActiveAdmin.register Offender do
   #
   # Uncomment all parameters which should be permitted for assignment
   #
-  permit_params :prison_id, :categoryCode, :mainOffence, :receptionDate, :firstName, :lastName, :cellLocation,
-                :offenderNo, :imprisonmentStatus, :dateOfBirth, :recall_flag, :keyworker_id
+  permit_params :prison_id, :categoryCode, :mainOffence, :receptionDate, :firstName, :lastName, :location,
+                :offenderNo, :imprisonmentStatus, :dateOfBirth, :recall_flag, :keyworker_id, :restrictedPatient
   #
   # or
   #
@@ -28,7 +28,7 @@ ActiveAdmin.register Offender do
                             }
       input :firstName
       input :lastName
-      input :cellLocation
+      input :location
       input :imprisonmentStatus, as: :select, collection: [%w[Determinate SENT03], %w[Inderminate LIFE]]
       input :dateOfBirth, as: :datepicker,
                           datepicker_options: {
@@ -36,6 +36,7 @@ ActiveAdmin.register Offender do
                             max_date: Time.zone.today - 18.years,
                           }
       input :recall_flag
+      input :restrictedPatient, label: 'Restricted Patient'
       input :keyworker
       actions
     end

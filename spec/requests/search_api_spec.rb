@@ -14,31 +14,43 @@ RSpec.describe "Prisoner Offender Search API", type: :request do
     create(:offender,
            imprisonmentStatus: "LIFE",
            prison: leeds,
+           restrictedPatient: false,
            keyworker: build(:user))
   end
 
   let!(:offender_2) do
     # in HMP Leeds with determinate sentence
     create(:offender,
+           restrictedPatient: false,
            prison: leeds)
   end
 
   let!(:offender_3) do
     # in HMP Pentonville with determinate sentence
     create(:offender,
+           restrictedPatient: false,
            prison: pentonville)
+  end
+
+  let!(:offender_4) do
+    # in HMP Leeds with RP active
+    create(:offender,
+           restrictedPatient: true,
+           location: "Heartlands",
+           prison: leeds)
   end
 
   describe "POST /prisoner-search/prisoner-numbers" do
     it "returns the requested offenders" do
       post "#{base_url}/prisoner-search/prisoner-numbers",
-           params: { prisonerNumbers: [offender_1.offenderNo, offender_3.offenderNo] },
+           params: { prisonerNumbers: [offender_1.offenderNo, offender_3.offenderNo, offender_4.offenderNo] },
            as: :json
 
       expect(response).to be_successful
       expect(response_json).to eq [
         json_offender(offender_1),
         json_offender(offender_3),
+        json_offender(offender_4),
       ]
     end
   end
@@ -48,7 +60,7 @@ RSpec.describe "Prisoner Offender Search API", type: :request do
       get "#{base_url}/prisoner-search/prison/#{leeds.code}"
 
       expect(response).to be_successful
-      expect(response_json.fetch("content")).to contain_exactly(json_offender(offender_1), json_offender(offender_2))
+      expect(response_json.fetch("content")).to contain_exactly(json_offender(offender_1), json_offender(offender_2), json_offender(offender_4))
       expect(response_json.fetch("content")).not_to include(json_offender(offender_3))
     end
   end
@@ -76,7 +88,7 @@ private
       "lastMovementReasonCode" => "INT",
       "inOutStatus" => "IN",
       "prisonId" => offender.prison.code,
-      "cellLocation" => offender.cellLocation,
+      "location" => offender.location,
       "legalStatus" => offender.legal_status,
       "imprisonmentStatus" => offender.imprisonmentStatus,
       "imprisonmentStatusDescription" => "Emulated #{offender.imprisonmentStatus} Sentence",
@@ -90,6 +102,7 @@ private
       "conditionalReleaseDate" => booking.conditionalReleaseDate,
       "sentenceStartDate" => booking.sentenceStartDate,
       "tariffDate" => booking.tariffDate,
+      "restrictedPatient" => offender.restrictedPatient
     }.compact)
   end
 end
