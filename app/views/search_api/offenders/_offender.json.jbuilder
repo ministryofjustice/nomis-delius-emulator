@@ -8,9 +8,10 @@ json.extract! offender,
               :firstName,
               :lastName,
               :dateOfBirth,
-              :location,
+              :cellLocation,
               :imprisonmentStatus,
-              :restrictedPatient
+              :restrictedPatient,
+              :dischargedHospitalDescription
 
 json.imprisonmentStatusDescription "Emulated #{offender.imprisonmentStatus} Sentence"
 json.indeterminateSentence offender.imprisonmentStatus == "LIFE"

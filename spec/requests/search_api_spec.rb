@@ -36,7 +36,7 @@ RSpec.describe "Prisoner Offender Search API", type: :request do
     # in HMP Leeds with RP active
     create(:offender,
            restrictedPatient: true,
-           location: "Heartlands",
+           dischargedHospitalDescription: "Heartlands",
            prison: leeds)
   end
 
@@ -88,7 +88,8 @@ private
       "lastMovementReasonCode" => "INT",
       "inOutStatus" => "IN",
       "prisonId" => offender.prison.code,
-      "location" => offender.location,
+      "cellLocation" => offender.cellLocation,
+      "dischargedHospitalDescription" => offender.dischargedHospitalDescription,
       "legalStatus" => offender.legal_status,
       "imprisonmentStatus" => offender.imprisonmentStatus,
       "imprisonmentStatusDescription" => "Emulated #{offender.imprisonmentStatus} Sentence",

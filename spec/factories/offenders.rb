@@ -15,7 +15,8 @@ FactoryBot.define do
     end
     receptionDate { Time.zone.today - 1.year }
     dateOfBirth { Time.zone.today - 20.years }
-    location { "Location" }
+    cellLocation { "Location" }
+    dischargedHospitalDescription { "Hospital" }
     restrictedPatient { false }
   end
 end
