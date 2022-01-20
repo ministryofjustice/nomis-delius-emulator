@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_12_02_090146) do
+ActiveRecord::Schema.define(version: 2022_01_20_124202) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -72,6 +72,7 @@ ActiveRecord::Schema.define(version: 2021_12_02_090146) do
     t.string "cellLocation"
     t.boolean "restrictedPatient", default: false
     t.string "dischargedHospitalDescription"
+    t.string "supportingPrisonId", default: "LEI"
     t.index ["offenderNo"], name: "index_offenders_on_offenderNo", unique: true
     t.index ["prison_id"], name: "index_offenders_on_prison_id"
   end
