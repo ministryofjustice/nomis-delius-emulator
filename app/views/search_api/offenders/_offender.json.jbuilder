@@ -21,6 +21,7 @@ json.recall offender.recall_flag
 json.mostSeriousOffence offender.mainOffence
 json.bookingId offender.booking&.id&.to_s
 json.prisonId offender.prison.code
+json.supportingPrisonId offender.prison.code
 
 # Sentence dates from the offender's booking
 if offender.booking.present?
