@@ -104,6 +104,7 @@ private
       "sentenceStartDate" => booking.sentenceStartDate,
       "tariffDate" => booking.tariffDate,
       "restrictedPatient" => offender.restrictedPatient,
+      "supportingPrisonId" => offender.supportingPrisonId,
     }.compact)
   end
 end

@@ -7,7 +7,7 @@ ActiveAdmin.register Offender do
   # Uncomment all parameters which should be permitted for assignment
   #
   permit_params :prison_id, :categoryCode, :mainOffence, :receptionDate, :firstName, :lastName, :cellLocation, :dischargedHospitalDescription,
-                :offenderNo, :imprisonmentStatus, :dateOfBirth, :recall_flag, :keyworker_id, :restrictedPatient
+                :offenderNo, :imprisonmentStatus, :dateOfBirth, :recall_flag, :keyworker_id, :restrictedPatient, :supportingPrisonId
   #
   # or
   #
@@ -38,6 +38,7 @@ ActiveAdmin.register Offender do
                           }
       input :recall_flag
       input :restrictedPatient, label: "Restricted Patient"
+      input :supportingPrisonId, label: "Supporting Prison Id"
       input :keyworker
       actions
     end

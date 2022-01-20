@@ -18,5 +18,6 @@ FactoryBot.define do
     cellLocation { "Location" }
     dischargedHospitalDescription { "Hospital" }
     restrictedPatient { false }
+    supportingPrisonId { "LEI" }
   end
 end
