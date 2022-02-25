@@ -8,10 +8,10 @@ references:
   deploy_container_config: &deploy_container_config
     resource_class: small
     docker:
-      - image: 754256621582.dkr.ecr.eu-west-2.amazonaws.com/cloud-platform/tools:circleci
+      - image: ministryofjustice/cloud-platform-tools
         environment:
           KUBE_ENV_STAGING_NAMESPACE: offender-management-staging
-          KUBE_ENV_STAGING_NAME: live-1.cloud-platform.service.justice.gov.uk
+          KUBE_ENV_STAGING_NAME: live.cloud-platform.service.justice.gov.uk
 
   test_container_config: &test_container_config
     resource_class: small
@@ -162,8 +162,13 @@ jobs:
       - run:
           name: Kubectl deployment staging setup
           command: |
-            setup-kube-auth
-            kubectl config use-context staging
+            echo -n ${CLUSTER_CERT_LIVE} | base64 -d > ./live_ca.crt
+            kubectl config set-cluster ${CLUSTER_NAME_LIVE} --certificate-authority=./live_ca.crt --server=https://${CLUSTER_NAME_LIVE}
+            kubectl config set-credentials circleci --token=${TOKEN_LIVE_STAGING}
+            kubectl config set-context ${CLUSTER_NAME_LIVE} --cluster=${CLUSTER_NAME_LIVE} --user=circleci --namespace=${KUBE_ENV_STAGING_NAMESPACE}
+            kubectl config use-context ${CLUSTER_NAME_LIVE}
+            kubectl config current-context
+            kubectl --namespace=${KUBE_ENV_STAGING_NAMESPACE} get pods
       - *install_gpg
       - *configure_gpg
       - *decrypt_secrets
