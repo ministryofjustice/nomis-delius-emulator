@@ -8,9 +8,9 @@ metadata:
 spec:
   tls:
   - hosts:
-    - nomis-delius-emulator.apps.live-1.cloud-platform.service.justice.gov.uk
+    - nomis-delius-emulator.apps.live.cloud-platform.service.justice.gov.uk
   rules:
-  - host: nomis-delius-emulator.apps.live-1.cloud-platform.service.justice.gov.uk
+  - host: nomis-delius-emulator.apps.live.cloud-platform.service.justice.gov.uk
     http:
       paths:
       - path: /
