@@ -177,8 +177,8 @@ jobs:
           command: |
             sed -i -e s/:latest/:$CIRCLE_SHA1/ deploy/deployment.yaml
             sed -i -e s/:latest/:$CIRCLE_SHA1/ deploy/migration-job.yaml
-            kubectl annotate deployments/nomis-delius-emulator kubernetes.io/change-cause="$CIRCLE_BUILD_URL"
             kubectl apply --record=false -f ./deploy
+            kubectl annotate deployments/nomis-delius-emulator kubernetes.io/change-cause="$CIRCLE_BUILD_URL"
           environment:
             <<: *github_team_name_slug
 
