@@ -8,7 +8,7 @@ ruby "3.0.2"
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem "bootsnap", require: false
 gem "pg"
-gem "rails", "~> 6.1.0"
+gem "rails", "~> 6.1.7"
 gem "sassc-rails"
 # Use Puma as the app server
 gem "puma", "~> 5.3"
